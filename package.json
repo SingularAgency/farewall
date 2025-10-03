@@ -1,0 +1,32 @@
+{
+  "name": "farewell",
+  "version": "1.0.0",
+  "description": "A Supabase-powered application with migrations and Docker support",
+  "main": "index.js",
+  "scripts": {
+    "dev": "supabase start",
+    "stop": "supabase stop",
+    "reset": "supabase db reset",
+    "migrate": "supabase db push",
+    "migrate:new": "supabase migration new",
+    "studio": "supabase studio",
+    "build": "echo 'Build script placeholder'",
+    "start": "echo 'Start script placeholder'",
+    "test": "echo 'Test script placeholder'"
+  },
+  "keywords": [
+    "supabase",
+    "postgresql",
+    "migrations",
+    "docker"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "supabase": "^1.200.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0"
+  }
+}
+

@@ -1,0 +1,57 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# 🛠 Cursor Rules – Supabase + Edge Functions
+
+## ✅ General Code Quality
+
+- Always follow SOLID principles (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion).
+- Ensure code is readable, modular, and maintainable.
+- Add meaningful docstrings and inline comments explaining logic when needed.
+- Always handle edge cases gracefully (null values, empty responses, invalid input).
+- Prefer composition over inheritance.
+- Use functional decomposition to keep functions short and focused.
+
+## 🔒 Security & Authorization
+
+- Always use Supabase Auth for user authentication and role-based access control.
+- Never expose service keys in client code.
+- All Supabase Edge Functions must validate the JWT token before executing sensitive operations.
+- Check row-level security (RLS) policies in database queries.
+- Use parameterized queries to prevent SQL injection.
+
+## ⚡ Supabase Edge Functions
+
+Edge Functions should always:
+
+- Be small, focused, and single-purpose.
+- Validate input payloads before processing.
+- Return clear error messages with proper HTTP status codes.
+- Log important events/errors for observability.
+
+## 📚 Documentation & Best Practices
+
+- Always follow Supabase official documentation when integrating features.
+- When unsure, prefer Supabase-recommended libraries and approaches over custom solutions.
+- Write README or inline documentation for each new function explaining:
+  - Purpose
+  - Input/Output
+  - Dependencies
+
+## 🧪 Testing & Reliability
+
+- Write unit tests for all business logic.
+- Mock Supabase client in tests to avoid hitting production DB.
+- Ensure functions are tested for:
+  - Valid input
+  - Invalid input
+  - Unauthorized access
+  - Performance under load
+
+## 🚀 Performance & Scalability
+
+- Use efficient database queries (avoid N+1 queries).
+- Prefer pagination for large datasets.
+- Cache results when possible if data is not sensitive.
