@@ -38,16 +38,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Setup Supabase CLI
-        uses: supabase/setup-cli@v1
-        with:
-          version: latest
 
-      - name: Verify Supabase CLI
-        run: |
-          echo "Verifying Supabase CLI installation..."
-          supabase --version
-          echo "✅ Supabase CLI is ready"
 
       - name: Set environment variables
         id: set-env
@@ -76,6 +67,17 @@ jobs:
               exit 1
               ;;
           esac
+
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Verify Supabase CLI
+        run: |
+          echo "Verifying Supabase CLI installation..."
+          supabase --version
+          echo "✅ Supabase CLI is ready"
 
       - name: Link to Supabase project
         run: |
