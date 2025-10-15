@@ -241,11 +241,15 @@ Add these secrets to your GitHub repository (Settings → Secrets and variables 
 - `SUPABASE_ACCESS_TOKEN_STAGING` - Access token for staging environment  
 - `SUPABASE_ACCESS_TOKEN_MAIN` - Access token for main environment
 
-**Getting Access Tokens:**
+**Getting Personal Access Tokens:**
 1. Go to your Supabase dashboard
-2. Navigate to Settings → API
-3. Copy the "service_role" key
-4. Or create a personal access token in your Supabase account settings
+2. Click on your profile icon → Account Settings
+3. Go to "Access Tokens" section
+4. Click "Generate New Token"
+5. Give it a name (e.g., "GitHub Actions - Develop")
+6. Copy the generated token (starts with `sbp_...`)
+
+**Important:** You need **Personal Access Tokens** (PAT), not service role keys!
 
 ### Deployment Commands
 
