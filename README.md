@@ -119,6 +119,98 @@ npm run migrate:new <name>
 
 # Apply migrations
 npm run migrate
+
+# Deploy Edge Functions
+npm run deploy:functions
+
+# Test Edge Functions locally
+npm run test:function
+```
+
+## 🏛️ Funeral Services API
+
+The project includes Edge Functions for funeral-related services with Google Maps integration:
+
+### Available Endpoints
+
+#### 1. Search Funeral Services
+**POST** `/functions/v1/funeral-services`
+
+Search for funeral-related services near a location using Google Maps API.
+
+**Request Body:**
+```json
+{
+  "location": "New York, NY",
+  "category": "banks",
+  "radius": 5000,
+  "limit": 20
+}
+```
+
+**Available Categories:**
+- `banks` - Banks & Financial Services
+- `funeral_homes` - Funeral Homes & Services
+- `legal_services` - Legal Services
+- `insurance` - Insurance Services
+- `government_services` - Government Services
+- `counseling` - Counseling & Support
+
+**Response:**
+```json
+{
+  "category": "banks",
+  "category_name": "Banks & Financial Services",
+  "location": "New York, NY",
+  "results": [
+    {
+      "id": "place_id",
+      "name": "Bank Name",
+      "address": "123 Main St, New York, NY",
+      "rating": 4.5,
+      "price_level": 2,
+      "types": ["bank", "finance"],
+      "geometry": {...},
+      "business_status": "OPERATIONAL",
+      "category": "banks",
+      "category_name": "Banks & Financial Services"
+    }
+  ],
+  "total_found": 15
+}
+```
+
+#### 2. Manage Categories
+**POST** `/functions/v1/manage-categories`
+
+Dynamically manage funeral service categories.
+
+**Actions:**
+- `get` - Get all categories
+- `add` - Add new category
+- `update` - Update existing category
+- `remove` - Remove category
+- `toggle` - Enable/disable category
+
+**Example - Get all categories:**
+```json
+{
+  "action": "get"
+}
+```
+
+**Example - Add new category:**
+```json
+{
+  "action": "add",
+  "category": "transportation",
+  "data": {
+    "name": "Transportation Services",
+    "keywords": ["limousine", "hearse", "transportation"],
+    "types": ["car_dealer", "travel_agency"],
+    "enabled": true
+  }
+}
 ```
 
 ## 🔐 Environment Variables
@@ -130,6 +222,56 @@ Copy `env.example` to `.env` and configure:
 - `SUPABASE_SERVICE_ROLE_KEY`: Your Supabase service role key
 - `DATABASE_URL`: PostgreSQL connection string
 - `JWT_SECRET`: JWT signing secret
+- `GOOGLE_MAPS_API_KEY`: Your Google Maps API key (required for funeral services API)
+
+## 🚀 CI/CD Deployment
+
+The project includes automated deployment of Supabase Edge Functions to different environments based on GitHub branches.
+
+### Branch Mapping
+- `develop` → Supabase Project: `rxpvyojjxqvtwkwdghtf`
+- `staging` → Supabase Project: `jykymoqntvrmaqqfqwps`
+- `main` → Supabase Project: `wmmqzbpkgbiweenvrhid`
+
+### Required GitHub Secrets
+
+Add these secrets to your GitHub repository (Settings → Secrets and variables → Actions):
+
+- `SUPABASE_ACCESS_TOKEN_DEVELOP` - Access token for develop environment
+- `SUPABASE_ACCESS_TOKEN_STAGING` - Access token for staging environment  
+- `SUPABASE_ACCESS_TOKEN_MAIN` - Access token for main environment
+
+**Getting Access Tokens:**
+1. Go to your Supabase dashboard
+2. Navigate to Settings → API
+3. Copy the "service_role" key
+4. Or create a personal access token in your Supabase account settings
+
+### Deployment Commands
+
+```bash
+# Deploy to specific environment locally
+npm run deploy:develop
+npm run deploy:staging
+npm run deploy:main
+
+# Deploy all functions (uses current linked project)
+npm run deploy:functions
+```
+
+### Automatic Deployment
+
+Functions are automatically deployed when:
+- Pushing to `main`, `staging`, or `develop` branches
+- Files in `supabase/functions/` are modified
+- Manual trigger from GitHub Actions tab
+
+### Manual Deployment
+
+1. Go to Actions tab in GitHub
+2. Select "Deploy Supabase Functions" workflow
+3. Click "Run workflow"
+4. Choose environment and run
 
 ## 🛠️ Supabase CLI Commands
 

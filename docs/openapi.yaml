@@ -1,0 +1,606 @@
+openapi: 3.0.3
+info:
+  title: Farewell API - Funeral Services
+  description: |
+    A Supabase-powered API for funeral-related services with Google Maps integration.
+    
+    This API provides endpoints for finding funeral-related services near a location,
+    including banks, funeral homes, legal services, insurance, government services,
+    and counseling support.
+    
+    ## Authentication
+    All endpoints require authentication via Supabase JWT tokens. Include the token
+    in the Authorization header as `Bearer <token>`.
+    
+    ## Rate Limiting
+    API calls are subject to Google Maps API rate limits and Supabase Edge Function limits.
+  version: 1.0.0
+  contact:
+    name: Farewell API Support
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:54321
+    description: Local development server (Supabase Auth + Edge Functions)
+  - url: https://your-project-ref.supabase.co
+    description: Production server (Supabase Auth + Edge Functions)
+
+security:
+  - token: []
+
+paths:
+  /auth/v1/signup:
+    post:
+      summary: Sign up a new user
+      description: |
+        Create a new user account with email and password. Returns a JWT token
+        that can be used to authenticate with other API endpoints.
+        
+        **Note**: This endpoint requires the `apikey` header with your Supabase anon key.
+      operationId: signUpUser
+      tags:
+        - Authentication
+      parameters:
+        - name: apikey
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Supabase anonymous key
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: User's email address
+                  example: "user@example.com"
+                password:
+                  type: string
+                  minLength: 6
+                  description: User's password (minimum 6 characters)
+                  example: "password123"
+            examples:
+              signup_example:
+                summary: Sign up a new user
+                value:
+                  email: "user@example.com"
+                  password: "password123"
+      responses:
+        '200':
+          description: User successfully created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    description: JWT token for API authentication
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  token_type:
+                    type: string
+                    example: "bearer"
+                  expires_in:
+                    type: integer
+                    description: Token expiration time in seconds
+                    example: 3600
+                  refresh_token:
+                    type: string
+                    description: Token for refreshing access token
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        example: "123e4567-e89b-12d3-a456-426614174000"
+                      email:
+                        type: string
+                        format: email
+                        example: "user@example.com"
+                      created_at:
+                        type: string
+                        format: date-time
+                        example: "2024-01-15T10:30:00.000Z"
+        '400':
+          description: Bad request - Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_email:
+                  summary: Invalid email format
+                  value:
+                    error: "Invalid email format"
+                weak_password:
+                  summary: Password too weak
+                  value:
+                    error: "Password should be at least 6 characters"
+        '422':
+          description: User already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                user_exists:
+                  summary: User already exists
+                  value:
+                    error: "User already registered"
+
+  /auth/v1/token:
+    post:
+      summary: Sign in an existing user
+      description: |
+        Authenticate a user with email and password. Returns a JWT token
+        that can be used to authenticate with other API endpoints.
+        
+        **Note**: This endpoint requires the `apikey` header with your Supabase anon key.
+        Use `grant_type=password` as a query parameter.
+      operationId: signInUser
+      tags:
+        - Authentication
+      parameters:
+        - name: grant_type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [password]
+          description: OAuth grant type
+          example: "password"
+        - name: apikey
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Supabase anonymous key
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: User's email address
+                  example: "user@example.com"
+                password:
+                  type: string
+                  description: User's password
+                  example: "password123"
+            examples:
+              signin_example:
+                summary: Sign in existing user
+                value:
+                  email: "user@example.com"
+                  password: "password123"
+      responses:
+        '200':
+          description: User successfully authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    description: JWT token for API authentication
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  token_type:
+                    type: string
+                    example: "bearer"
+                  expires_in:
+                    type: integer
+                    description: Token expiration time in seconds
+                    example: 3600
+                  refresh_token:
+                    type: string
+                    description: Token for refreshing access token
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        example: "123e4567-e89b-12d3-a456-426614174000"
+                      email:
+                        type: string
+                        format: email
+                        example: "user@example.com"
+                      last_sign_in_at:
+                        type: string
+                        format: date-time
+                        example: "2024-01-15T10:30:00.000Z"
+        '400':
+          description: Bad request - Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_credentials:
+                  summary: Invalid credentials
+                  value:
+                    error: "Invalid login credentials"
+
+  /functions/v1/google_maps_finder:
+    post:
+      summary: Search for funeral-related services
+      description: |
+        Search for funeral-related services near a specified location using Google Maps API.
+        Returns a list of businesses matching the specified category within the given radius.
+      operationId: searchFuneralServices
+      tags:
+        - Funeral Services
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+            examples:
+              banks_example:
+                summary: Search for banks
+                value:
+                  location: "New York, NY"
+                  category: "banks"
+                  radius: 5000
+                  limit: 20
+              funeral_homes_example:
+                summary: Search for funeral homes
+                value:
+                  location: "Los Angeles, CA"
+                  category: "funeral_homes"
+                  radius: 10000
+                  limit: 15
+      responses:
+        '200':
+          description: Successful search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+              examples:
+                success_example:
+                  summary: Successful search results
+                  value:
+                    category: "banks"
+                    category_name: "Banks & Financial Services"
+                    location: "New York, NY"
+                    results:
+                      - id: "ChIJd8BlQ2BZwokRAFUEcm_qrcA"
+                        name: "Chase Bank"
+                        address: "123 Main St, New York, NY 10001"
+                        rating: 4.2
+                        price_level: 2
+                        types: ["bank", "atm", "finance"]
+                        geometry:
+                          location:
+                            lat: 40.7128
+                            lng: -74.0060
+                        business_status: "OPERATIONAL"
+                        category: "banks"
+                        category_name: "Banks & Financial Services"
+                    total_found: 15
+                    user_id: "123e4567-e89b-12d3-a456-426614174000"
+                    search_timestamp: "2024-01-15T10:30:00.000Z"
+        '400':
+          description: Bad request - Invalid input parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missing_location:
+                  summary: Missing location parameter
+                  value:
+                    error: "Location and category are required"
+                invalid_category:
+                  summary: Invalid category
+                  value:
+                    error: "Invalid category"
+                    available_categories: ["banks", "funeral_homes", "legal_services", "insurance", "government_services", "counseling"]
+        '401':
+          description: Unauthorized - Invalid or missing authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized:
+                  summary: Unauthorized access
+                  value:
+                    error: "Unauthorized"
+                    message: "Invalid or missing authentication token"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                api_key_error:
+                  summary: Google Maps API key not configured
+                  value:
+                    error: "Google Maps API key not configured"
+                server_error:
+                  summary: Internal server error
+                  value:
+                    error: "Internal server error"
+                    details: "Error message details"
+
+components:
+  securitySchemes:
+    token:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        Supabase JWT token obtained through authentication.
+        Include the token in the Authorization header as `Bearer <token>`.
+
+  schemas:
+    SearchRequest:
+      type: object
+      required:
+        - location
+        - category
+      properties:
+        location:
+          type: string
+          description: The location to search near (address, city, or coordinates)
+          example: "New York, NY"
+        category:
+          type: string
+          enum: [banks, funeral_homes, legal_services, insurance, government_services, counseling]
+          description: The category of services to search for
+          example: "banks"
+        radius:
+          type: integer
+          minimum: 100
+          maximum: 50000
+          default: 5000
+          description: Search radius in meters
+          example: 5000
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 50
+          default: 20
+          description: Maximum number of results to return
+          example: 20
+
+    SearchResponse:
+      type: object
+      properties:
+        category:
+          type: string
+          description: The search category used
+          example: "banks"
+        category_name:
+          type: string
+          description: Human-readable category name
+          example: "Banks & Financial Services"
+        location:
+          type: string
+          description: The search location
+          example: "New York, NY"
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlaceResult'
+        total_found:
+          type: integer
+          description: Total number of results found
+          example: 15
+        user_id:
+          type: string
+          format: uuid
+          description: ID of the authenticated user who made the request
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        search_timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the search was performed
+          example: "2024-01-15T10:30:00.000Z"
+
+    PlaceResult:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Google Places API place ID
+          example: "ChIJd8BlQ2BZwokRAFUEcm_qrcA"
+        name:
+          type: string
+          description: Business name
+          example: "Chase Bank"
+        address:
+          type: string
+          description: Formatted address
+          example: "123 Main St, New York, NY 10001"
+        rating:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 5
+          description: Business rating (0-5 stars)
+          example: 4.2
+        price_level:
+          type: integer
+          minimum: 0
+          maximum: 4
+          description: Price level indicator (0=Free, 4=Very Expensive)
+          example: 2
+        types:
+          type: array
+          items:
+            type: string
+          description: Array of place types
+          example: ["bank", "atm", "finance"]
+        geometry:
+          type: object
+          properties:
+            location:
+              type: object
+              properties:
+                lat:
+                  type: number
+                  format: float
+                  example: 40.7128
+                lng:
+                  type: number
+                  format: float
+                  example: -74.0060
+        business_status:
+          type: string
+          enum: [OPERATIONAL, CLOSED_TEMPORARILY, CLOSED_PERMANENTLY]
+          description: Current business status
+          example: "OPERATIONAL"
+        category:
+          type: string
+          description: Search category used
+          example: "banks"
+        category_name:
+          type: string
+          description: Human-readable category name
+          example: "Banks & Financial Services"
+        phone_number:
+          type: string
+          nullable: true
+          description: Formatted phone number
+          example: "(555) 123-4567"
+        website:
+          type: string
+          nullable: true
+          format: uri
+          description: Business website URL
+          example: "https://www.example-bank.com"
+        google_maps_url:
+          type: string
+          nullable: true
+          format: uri
+          description: Google Maps URL for the business
+          example: "https://maps.google.com/?cid=123456789"
+        opening_hours:
+          type: object
+          nullable: true
+          description: Business operating hours
+          properties:
+            open_now:
+              type: boolean
+              description: Whether the business is currently open
+              example: true
+            weekday_text:
+              type: array
+              items:
+                type: string
+              description: Human-readable opening hours for each day
+              example: [
+                "Monday: 9:00 AM – 5:00 PM",
+                "Tuesday: 9:00 AM – 5:00 PM",
+                "Wednesday: 9:00 AM – 5:00 PM",
+                "Thursday: 9:00 AM – 5:00 PM",
+                "Friday: 9:00 AM – 5:00 PM",
+                "Saturday: 10:00 AM – 2:00 PM",
+                "Sunday: Closed"
+              ]
+            periods:
+              type: array
+              nullable: true
+              description: Detailed opening periods (if available)
+              items:
+                type: object
+                properties:
+                  close:
+                    type: object
+                    properties:
+                      day:
+                        type: integer
+                        minimum: 0
+                        maximum: 6
+                        description: Day of week (0=Sunday, 1=Monday, etc.)"
+                        example: 1
+                      time:
+                        type: string
+                        description: Closing time in HHMM format
+                        example: "1700"
+                  open:
+                    type: object
+                    properties:
+                      day:
+                        type: integer
+                        minimum: 0
+                        maximum: 6
+                        description: Day of week (0=Sunday, 1=Monday, etc.)"
+                        example: 1
+                      time:
+                        type: string
+                        description: Opening time in HHMM format
+                        example: "0900"
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: "Invalid category"
+        message:
+          type: string
+          description: Additional error details
+          example: "The provided category is not supported"
+        details:
+          type: string
+          description: Technical error details (for 500 errors)
+          example: "Error message details"
+        available_categories:
+          type: array
+          items:
+            type: string
+          description: List of available categories (for category errors)
+          example: ["banks", "funeral_homes", "legal_services"]
+
+  examples:
+    ServiceCategories:
+      summary: Available service categories
+      description: |
+        The following categories are available for searching funeral-related services:
+        
+        - **banks**: Banks & Financial Services
+        - **funeral_homes**: Funeral Homes & Services  
+        - **legal_services**: Legal Services
+        - **insurance**: Insurance Services
+        - **government_services**: Government Services
+        - **counseling**: Counseling & Support
+
+tags:
+  - name: Authentication
+    description: |
+      User authentication endpoints for signing up and signing in. These endpoints
+      return JWT tokens that are required for accessing other API endpoints.
+  - name: Funeral Services
+    description: |
+      Endpoints for finding funeral-related services including banks, funeral homes,
+      legal services, insurance, government services, and counseling support.

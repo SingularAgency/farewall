@@ -10,6 +10,12 @@
     "migrate": "supabase db push",
     "migrate:new": "supabase migration new",
     "studio": "supabase studio",
+    "deploy:functions": "supabase functions deploy",
+    "deploy:function": "supabase functions deploy",
+    "deploy:develop": "./scripts/deploy-functions.sh develop",
+    "deploy:staging": "./scripts/deploy-functions.sh staging",
+    "deploy:main": "./scripts/deploy-functions.sh main",
+    "test:function": "supabase functions serve",
     "build": "echo 'Build script placeholder'",
     "start": "echo 'Start script placeholder'",
     "test": "echo 'Test script placeholder'"
