@@ -38,9 +38,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Supabase CLI
-        run: |
-          npm install -g supabase@${{ env.SUPABASE_CLI_VERSION }}
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
 
       - name: Set environment variables
         id: set-env
