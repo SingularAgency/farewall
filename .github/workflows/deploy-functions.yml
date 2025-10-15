@@ -54,7 +54,6 @@ jobs:
         run: |
           # Use manual input if available, otherwise use branch name
           ENV_NAME="${{ github.event.inputs.environment || github.ref_name }}"
-          echo "SUPABASE_LOGIN_TOKEN=${{ secrets.SUPABASE_LOGIN_TOKEN }}" >> $GITHUB_ENV
           case "$ENV_NAME" in
             "main")
               echo "SUPABASE_PROJECT_ID=wmmqzbpkgbiweenvrhid" >> $GITHUB_ENV
@@ -77,12 +76,6 @@ jobs:
               exit 1
               ;;
           esac
-
-      - name: Login to Supabase
-        run: |
-          echo "Logging in to Supabase..."
-          supabase login --token "$SUPABASE_LOGIN_TOKEN"
-          echo "✅ Successfully logged in to Supabase"
 
       - name: Link to Supabase project
         run: |
