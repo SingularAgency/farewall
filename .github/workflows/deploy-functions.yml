@@ -18,9 +18,6 @@ on:
           - staging
           - main
 
-env:
-  SUPABASE_CLI_VERSION: "1.200.0"
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -29,87 +26,44 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-
-
-      - name: Set environment variables
+      - name: Validate environment and set variables
         id: set-env
         run: |
           # Use manual input if available, otherwise use branch name
           ENV_NAME="${{ github.event.inputs.environment || github.ref_name }}"
+          echo "SUPABASE_ACCESS_TOKEN=${{ secrets.SUPABASE_LOGIN_TOKEN }}" >> $GITHUB_ENV
           case "$ENV_NAME" in
             "main")
               echo "SUPABASE_PROJECT_ID=wmmqzbpkgbiweenvrhid" >> $GITHUB_ENV
-              echo "SUPABASE_ACCESS_TOKEN=${{ secrets.SUPABASE_ACCESS_TOKEN_MAIN }}" >> $GITHUB_ENV
               echo "ENVIRONMENT=main" >> $GITHUB_ENV
               ;;
             "staging")
               echo "SUPABASE_PROJECT_ID=jykymoqntvrmaqqfqwps" >> $GITHUB_ENV
-              echo "SUPABASE_ACCESS_TOKEN=${{ secrets.SUPABASE_ACCESS_TOKEN_STAGING }}" >> $GITHUB_ENV
               echo "ENVIRONMENT=staging" >> $GITHUB_ENV
               ;;
             "develop")
               echo "SUPABASE_PROJECT_ID=rxpvyojjxqvtwkwdghtf" >> $GITHUB_ENV
-              echo "SUPABASE_ACCESS_TOKEN=${{ secrets.SUPABASE_ACCESS_TOKEN_DEVELOP }}" >> $GITHUB_ENV
               echo "ENVIRONMENT=develop" >> $GITHUB_ENV
               ;;
             *)
-              echo "Unknown environment: $ENV_NAME"
+              echo "❌ Unknown environment: $ENV_NAME"
               echo "Available environments: develop, staging, main"
               exit 1
               ;;
           esac
+          
+          echo "✅ Environment validated: $ENV_NAME"
+          echo "Project ID: $SUPABASE_PROJECT_ID"
 
       - name: Setup Supabase CLI
         uses: supabase/setup-cli@v1
         with:
           version: latest
 
-      - name: Verify Supabase CLI
-        run: |
-          echo "Verifying Supabase CLI installation..."
-          supabase --version
-          echo "✅ Supabase CLI is ready"
-
-      - name: Link to Supabase project
-        run: |
-          echo "Linking to Supabase project: $SUPABASE_PROJECT_ID"
-          supabase link --project-ref $SUPABASE_PROJECT_ID
-          echo "✅ Successfully linked to project"
-
-      - name: Deploy all functions
+      - name: Deploy functions
         run: |
           echo "Deploying functions to $ENVIRONMENT environment (Project ID: $SUPABASE_PROJECT_ID)"
-          
-          # Get list of functions to deploy
-          FUNCTIONS=$(find supabase/functions -maxdepth 1 -type d -not -path "supabase/functions" -not -path "supabase/functions/_shared" | sed 's|supabase/functions/||')
-          
-          if [ -z "$FUNCTIONS" ]; then
-            echo "No functions found to deploy"
-            exit 0
-          fi
-          
-          echo "Found functions: $FUNCTIONS"
-          
-          # Deploy each function
-          for func in $FUNCTIONS; do
-            echo "Deploying function: $func"
-            supabase functions deploy $func --project-ref $SUPABASE_PROJECT_ID
-            if [ $? -eq 0 ]; then
-              echo "✅ Successfully deployed $func"
-            else
-              echo "❌ Failed to deploy $func"
-              exit 1
-            fi
-          done
+          supabase functions deploy --project-ref $SUPABASE_PROJECT_ID
 
       - name: Verify deployment
         run: |
@@ -117,13 +71,3 @@ jobs:
           echo "Project ID: $SUPABASE_PROJECT_ID"
           echo "Branch: ${{ github.ref_name }}"
           echo "Commit: ${{ github.sha }}"
-
-      - name: Notify deployment status
-        if: always()
-        run: |
-          if [ "${{ job.status }}" == "success" ]; then
-            echo "🎉 Deployment to $ENVIRONMENT completed successfully!"
-          else
-            echo "❌ Deployment to $ENVIRONMENT failed!"
-            exit 1
-          fi
