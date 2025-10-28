@@ -244,6 +244,251 @@ paths:
                   value:
                     error: "Invalid login credentials"
 
+  /functions/v1/task-management:
+    get:
+      summary: Get task instances for a case
+      description: |
+        Retrieve all task instances and their details for a specific case. This endpoint
+        provides comprehensive task management data including task steps, completion status,
+        notes, and related articles.
+        
+        **Case Filter**: Use the `case_id` query parameter to filter tasks for a specific case.
+        **User Filter**: Admins can optionally use `user_id` to filter by specific user's cases.
+      operationId: getTaskInstances
+      tags:
+        - Task Management
+      parameters:
+        - name: case_id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: UUID of the case to retrieve task instances for
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        - name: user_id
+          in: query
+          required: false
+          schema:
+            type: string
+            format: uuid
+          description: UUID of user to filter cases by (admin only)
+          example: "123e4567-e89b-12d3-a456-426614174000"
+      responses:
+        '200':
+          description: Task instances retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskManagementResponse'
+              examples:
+                success_example:
+                  summary: Successful task instances retrieval
+                  value:
+                    task_instances:
+                      - id: "task-instance-1"
+                        case_id: "case-1"
+                        task_template_id: "template-1"
+                        assigned_user_id: "user-1"
+                        status: "in_progress"
+                        created_at: "2024-01-15T10:30:00.000Z"
+                        updated_at: "2024-01-15T11:00:00.000Z"
+                        case:
+                          id: "case-1"
+                          deceased_name: "John Doe"
+                          date_of_death: "2024-01-10"
+                          user_id: "user-1"
+                        task_template:
+                          id: "template-1"
+                          name: "Funeral Arrangements"
+                          description: "Complete funeral planning tasks"
+                        assigned_user:
+                          id: "user-1"
+                          name: "Jane Smith"
+                          email: "jane@example.com"
+                          role: "executor"
+                        task_steps:
+                          - id: "step-1"
+                            title: "Contact Funeral Home"
+                            order: 1
+                            instructions: "Research and contact local funeral homes"
+                            communication_helpers:
+                              template_email: "Dear [Funeral Home], I am reaching out regarding funeral arrangements..."
+                              phone_script: "Hello, I'm calling to inquire about your funeral services..."
+                            completed: true
+                            completed_at: "2024-01-15T10:45:00.000Z"
+                        notes:
+                          - id: "note-1"
+                            content: "Contacted three funeral homes, waiting for quotes"
+                            created_at: "2024-01-15T10:45:00.000Z"
+                            author:
+                              id: "user-1"
+                              name: "Jane Smith"
+                              email: "jane@example.com"
+                        articles:
+                          - id: "article-1"
+                            title: "How to Choose a Funeral Home"
+                            summary: "Guidelines for selecting the right funeral home"
+                            content_url: "https://example.com/funeral-home-guide"
+                            read_time_min: 5
+                    statistics:
+                      total_instances: 1
+                      pending: 0
+                      in_progress: 1
+                      done: 0
+                      total_steps: 3
+                      completed_steps: 1
+                    user_id: "user-1"
+                    user_role: "executor"
+                    case_id: "case-1"
+                    filtered_by_user: null
+                    timestamp: "2024-01-15T11:00:00.000Z"
+        '400':
+          description: Bad request - Missing required parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missing_case_id:
+                  summary: Missing case_id parameter
+                  value:
+                    error: "case_id parameter is required"
+        '401':
+          description: Unauthorized - Invalid or missing authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized:
+                  summary: Unauthorized access
+                  value:
+                    error: "Unauthorized"
+                    message: "Invalid or missing authentication token"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                server_error:
+                  summary: Internal server error
+                  value:
+                    error: "Internal server error"
+                    details: "Failed to fetch task instances"
+
+  /functions/v1/articles:
+    get:
+      summary: List articles
+      description: |
+        Retrieve a list of articles with optional search and pagination. This endpoint
+        provides access to all articles in the system, which can be used for reference
+        materials related to funeral planning and related tasks.
+        
+        **Search**: Use the `search` parameter to filter articles by title or summary.
+        **Pagination**: Use `limit` and `offset` parameters for paginated results.
+      operationId: listArticles
+      tags:
+        - Articles
+      parameters:
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Search term to filter articles by title or summary
+          example: "funeral planning"
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 50
+          description: Maximum number of articles to return
+          example: 20
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+          description: Number of articles to skip for pagination
+          example: 0
+      responses:
+        '200':
+          description: Articles retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticlesResponse'
+              examples:
+                success_example:
+                  summary: Successful articles retrieval
+                  value:
+                    articles:
+                      - id: "article-1"
+                        title: "How to Choose a Funeral Home"
+                        summary: "Guidelines for selecting the right funeral home for your needs"
+                        content_url: "https://example.com/funeral-home-guide"
+                        read_time_min: 5
+                        created_at: "2024-01-01T00:00:00.000Z"
+                        updated_at: "2024-01-01T00:00:00.000Z"
+                      - id: "article-2"
+                        title: "Understanding Funeral Costs"
+                        summary: "A comprehensive guide to funeral expenses and budgeting"
+                        content_url: "https://example.com/funeral-costs"
+                        read_time_min: 8
+                        created_at: "2024-01-02T00:00:00.000Z"
+                        updated_at: "2024-01-02T00:00:00.000Z"
+                    total_count: 25
+                    user_id: "user-1"
+                    user_role: "executor"
+                    timestamp: "2024-01-15T11:00:00.000Z"
+                search_example:
+                  summary: Search results
+                  value:
+                    articles:
+                      - id: "article-3"
+                        title: "Funeral Planning Checklist"
+                        summary: "Essential steps for planning a funeral service"
+                        content_url: "https://example.com/funeral-checklist"
+                        read_time_min: 6
+                        created_at: "2024-01-03T00:00:00.000Z"
+                        updated_at: "2024-01-03T00:00:00.000Z"
+                    total_count: 1
+                    user_id: "user-1"
+                    user_role: "executor"
+                    timestamp: "2024-01-15T11:00:00.000Z"
+        '401':
+          description: Unauthorized - Invalid or missing authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized:
+                  summary: Unauthorized access
+                  value:
+                    error: "Unauthorized"
+                    message: "Invalid or missing authentication token"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                server_error:
+                  summary: Internal server error
+                  value:
+                    error: "Internal server error"
+                    details: "Failed to fetch articles"
+
   /functions/v1/google_maps_finder:
     post:
       summary: Search for funeral-related services
@@ -560,6 +805,342 @@ components:
                         description: Opening time in HHMM format
                         example: "0900"
 
+    TaskManagementResponse:
+      type: object
+      properties:
+        task_instances:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskInstanceWithDetails'
+          description: Array of task instances with complete details
+        statistics:
+          $ref: '#/components/schemas/TaskManagementStatistics'
+        user_id:
+          type: string
+          format: uuid
+          description: ID of the authenticated user
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        user_role:
+          type: string
+          enum: [admin, user, executor]
+          description: Role of the authenticated user
+          example: "executor"
+        case_id:
+          type: string
+          format: uuid
+          description: ID of the case being queried
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        filtered_by_user:
+          type: string
+          format: uuid
+          nullable: true
+          description: User ID used for filtering (admin only)
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the response was generated
+          example: "2024-01-15T11:00:00.000Z"
+
+    TaskInstanceWithDetails:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Task instance ID
+          example: "task-instance-1"
+        case_id:
+          type: string
+          format: uuid
+          description: Associated case ID
+          example: "case-1"
+        task_template_id:
+          type: string
+          format: uuid
+          description: Task template ID
+          example: "template-1"
+        assigned_user_id:
+          type: string
+          format: uuid
+          description: ID of user assigned to this task
+          example: "user-1"
+        status:
+          type: string
+          enum: [pending, in_progress, done]
+          description: Current status of the task instance
+          example: "in_progress"
+        created_at:
+          type: string
+          format: date-time
+          description: When the task instance was created
+          example: "2024-01-15T10:30:00.000Z"
+        updated_at:
+          type: string
+          format: date-time
+          description: When the task instance was last updated
+          example: "2024-01-15T11:00:00.000Z"
+        case:
+          $ref: '#/components/schemas/Case'
+        task_template:
+          $ref: '#/components/schemas/TaskTemplate'
+        assigned_user:
+          $ref: '#/components/schemas/UserProfile'
+        task_steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskStepWithCompletion'
+          description: Array of task steps with completion status
+        notes:
+          type: array
+          items:
+            $ref: '#/components/schemas/NoteWithAuthor'
+          description: Array of notes for this task instance
+        articles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Article'
+          description: Array of related articles
+
+    TaskManagementStatistics:
+      type: object
+      properties:
+        total_instances:
+          type: integer
+          description: Total number of task instances
+          example: 5
+        pending:
+          type: integer
+          description: Number of pending task instances
+          example: 2
+        in_progress:
+          type: integer
+          description: Number of in-progress task instances
+          example: 2
+        done:
+          type: integer
+          description: Number of completed task instances
+          example: 1
+        total_steps:
+          type: integer
+          description: Total number of task steps across all instances
+          example: 15
+        completed_steps:
+          type: integer
+          description: Number of completed task steps
+          example: 8
+
+    Case:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Case ID
+          example: "case-1"
+        user_id:
+          type: string
+          format: uuid
+          description: ID of the case owner
+          example: "user-1"
+        deceased_name:
+          type: string
+          description: Name of the deceased person
+          example: "John Doe"
+        date_of_death:
+          type: string
+          format: date
+          description: Date of death
+          example: "2024-01-10"
+        created_at:
+          type: string
+          format: date-time
+          description: When the case was created
+          example: "2024-01-10T08:00:00.000Z"
+
+    TaskTemplate:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Task template ID
+          example: "template-1"
+        name:
+          type: string
+          description: Template name
+          example: "Funeral Arrangements"
+        description:
+          type: string
+          description: Template description
+          example: "Complete funeral planning tasks"
+        created_at:
+          type: string
+          format: date-time
+          description: When the template was created
+          example: "2024-01-01T00:00:00.000Z"
+
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: User ID
+          example: "user-1"
+        name:
+          type: string
+          description: User's full name
+          example: "Jane Smith"
+        email:
+          type: string
+          format: email
+          description: User's email address
+          example: "jane@example.com"
+        role:
+          type: string
+          enum: [admin, user, executor]
+          description: User's role
+          example: "executor"
+        created_at:
+          type: string
+          format: date-time
+          description: When the user profile was created
+          example: "2024-01-01T00:00:00.000Z"
+
+    TaskStepWithCompletion:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Task step ID
+          example: "step-1"
+        title:
+          type: string
+          description: Step title
+          example: "Contact Funeral Home"
+        order:
+          type: integer
+          description: Step order number
+          example: 1
+        instructions:
+          type: string
+          nullable: true
+          description: Step instructions
+          example: "Research and contact local funeral homes"
+        communication_helpers:
+          type: object
+          nullable: true
+          description: JSONB object containing communication helper data
+          example:
+            template_email: "Dear [Funeral Home], I am reaching out regarding funeral arrangements..."
+            phone_script: "Hello, I'm calling to inquire about your funeral services..."
+        completed:
+          type: boolean
+          description: Whether the step is completed
+          example: true
+        completed_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the step was completed
+          example: "2024-01-15T10:45:00.000Z"
+
+    NoteWithAuthor:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Note ID
+          example: "note-1"
+        content:
+          type: string
+          description: Note content
+          example: "Contacted three funeral homes, waiting for quotes"
+        created_at:
+          type: string
+          format: date-time
+          description: When the note was created
+          example: "2024-01-15T10:45:00.000Z"
+        author:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: Author's user ID
+              example: "user-1"
+            name:
+              type: string
+              description: Author's name
+              example: "Jane Smith"
+            email:
+              type: string
+              format: email
+              description: Author's email
+              example: "jane@example.com"
+
+    Article:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Article ID
+          example: "article-1"
+        title:
+          type: string
+          description: Article title
+          example: "How to Choose a Funeral Home"
+        summary:
+          type: string
+          description: Article summary
+          example: "Guidelines for selecting the right funeral home"
+        content_url:
+          type: string
+          format: uri
+          description: URL to the full article content
+          example: "https://example.com/funeral-home-guide"
+        read_time_min:
+          type: integer
+          description: Estimated reading time in minutes
+          example: 5
+        created_at:
+          type: string
+          format: date-time
+          description: When the article was created
+          example: "2024-01-01T00:00:00.000Z"
+
+    ArticlesResponse:
+      type: object
+      properties:
+        articles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Article'
+          description: Array of articles
+        total_count:
+          type: integer
+          description: Total number of articles available
+          example: 25
+        user_id:
+          type: string
+          format: uuid
+          description: ID of the authenticated user
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        user_role:
+          type: string
+          enum: [admin, user, executor]
+          description: Role of the authenticated user
+          example: "executor"
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the response was generated
+          example: "2024-01-15T11:00:00.000Z"
+
     ErrorResponse:
       type: object
       properties:
@@ -600,6 +1181,16 @@ tags:
     description: |
       User authentication endpoints for signing up and signing in. These endpoints
       return JWT tokens that are required for accessing other API endpoints.
+  - name: Task Management
+    description: |
+      Endpoints for managing funeral-related tasks and cases. These endpoints provide
+      comprehensive task management functionality including task instances, steps,
+      completion tracking, notes, and communication helpers.
+  - name: Articles
+    description: |
+      Endpoints for accessing reference articles and documentation related to funeral
+      planning and related tasks. These endpoints provide searchable access to
+      educational content and guides.
   - name: Funeral Services
     description: |
       Endpoints for finding funeral-related services including banks, funeral homes,
