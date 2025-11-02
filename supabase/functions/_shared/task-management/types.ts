@@ -31,11 +31,25 @@ export interface UserProfile {
 
 export interface Case {
   id: string
-  user_id: string
   deceased_name: string
   date_of_death: string
   created_at: string
   updated_at: string
+  case_users?: Array<{
+    user_id: string
+    profiles?: {
+      id: string
+      name: string
+      email: string
+    }
+  }>
+}
+
+export interface CaseUser {
+  id: string
+  case_id: string
+  user_id: string
+  created_at: string
 }
 
 // ============================================================================

@@ -50,6 +50,33 @@ async function handleRequest(req: Request, user: AuthenticatedUser): Promise<Res
       )
     }
 
+    // First, verify that the user has access to this case via the junction table
+    if (user.role !== 'admin') {
+      const { data: caseAccess, error: accessError } = await supabase
+        .from('case_users')
+        .select('id')
+        .eq('case_id', caseId)
+        .eq('user_id', user.id)
+        .single()
+
+      if (accessError || !caseAccess) {
+        return new Response(
+          JSON.stringify({ 
+            error: 'Access denied: You do not have access to this case',
+            task_instances: [],
+            total_count: 0,
+            user_id: user.id,
+            case_id: caseId,
+            filtered_by_user: userId || null
+          }),
+          { 
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+            status: 403,
+          },
+        )
+      }
+    }
+
     // Build the optimized query with all related data in a single query
     let query = supabase
       .from('task_instances')
@@ -66,7 +93,14 @@ async function handleRequest(req: Request, user: AuthenticatedUser): Promise<Res
           deceased_name,
           date_of_death,
           created_at,
-          user_id
+          case_users(
+            user_id,
+            profiles(
+              id,
+              name,
+              email
+            )
+          )
         ),
         task_templates!inner(
           id,
@@ -114,16 +148,35 @@ async function handleRequest(req: Request, user: AuthenticatedUser): Promise<Res
       .eq('case_id', caseId)
 
     // Apply additional filters based on user role
-    if (user.role === 'admin') {
+    if (user.role === 'admin' && userId) {
       // Admins can see all task instances for the case
-      // If user_id is provided, filter by that specific user's cases
-      if (userId) {
-        query = query.eq('cases.user_id', userId)
+      // If user_id is provided, verify that user has access to this case
+      const { data: userCaseAccess, error: userAccessError } = await supabase
+        .from('case_users')
+        .select('id')
+        .eq('case_id', caseId)
+        .eq('user_id', userId)
+        .single()
+
+      if (userAccessError || !userCaseAccess) {
+        // The specified user doesn't have access to this case, return empty results
+        return new Response(
+          JSON.stringify({ 
+            task_instances: [],
+            total_count: 0,
+            user_id: user.id,
+            case_id: caseId,
+            filtered_by_user: userId,
+            message: `User ${userId} does not have access to this case`
+          }),
+          { 
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+            status: 200,
+          },
+        )
       }
-    } else {
-      // Regular users can only see instances for their own cases
-      query = query.eq('cases.user_id', user.id)
     }
+    // Regular users - access already verified above, so they can see all instances for this case
 
     // Execute the optimized query
     const { data: taskInstances, error: instancesError } = await query
