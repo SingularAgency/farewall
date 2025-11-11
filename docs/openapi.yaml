@@ -379,6 +379,118 @@ paths:
                     error: "Internal server error"
                     details: "Failed to fetch task instances"
 
+  /functions/v1/cases:
+    get:
+      summary: List accessible cases
+      description: |
+        Retrieve the list of cases the authenticated user can access. Admins may optionally
+        filter cases by user. Results include linked collaborators and support pagination
+        and simple search by deceased name.
+      operationId: listCases
+      tags:
+        - Cases
+      parameters:
+        - name: user_id
+          in: query
+          required: false
+          schema:
+            type: string
+            format: uuid
+          description: |
+            UUID of a user to filter cases by. Only administrators may filter for users
+            other than themselves.
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Case-insensitive search term applied to the deceased name.
+          example: "Doe"
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 50
+          description: Maximum number of cases to return.
+          example: 20
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+          description: Number of cases to skip for pagination.
+          example: 0
+      responses:
+        '200':
+          description: Cases retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CasesResponse'
+              examples:
+                success_example:
+                  summary: Successful cases retrieval
+                  value:
+                    cases:
+                      - id: "case-1"
+                        deceased_name: "John Doe"
+                        date_of_death: "2024-01-10"
+                        created_at: "2024-01-10T08:00:00.000Z"
+                        updated_at: "2024-01-12T09:15:00.000Z"
+                        case_users:
+                          - user_id: "user-1"
+                            profiles:
+                              id: "user-1"
+                              name: "Jane Smith"
+                              email: "jane@example.com"
+                              role: "executor"
+                    total_count: 1
+                    user_id: "user-1"
+                    user_role: "executor"
+                    filtered_by_user: "user-1"
+                    timestamp: "2024-01-15T11:00:00.000Z"
+        '403':
+          description: Forbidden - User attempted to access another user's cases without permission
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden:
+                  summary: Forbidden access
+                  value:
+                    error: "Access denied: You can only view your own cases"
+        '401':
+          description: Unauthorized - Invalid or missing authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized:
+                  summary: Unauthorized access
+                  value:
+                    error: "Unauthorized"
+                    message: "Invalid or missing authentication token"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                server_error:
+                  summary: Internal server error
+                  value:
+                    error: "Internal server error"
+                    details: "Failed to fetch cases"
+
   /functions/v1/articles:
     get:
       summary: List articles
@@ -938,11 +1050,6 @@ components:
           format: uuid
           description: Case ID
           example: "case-1"
-        user_id:
-          type: string
-          format: uuid
-          description: ID of the case owner
-          example: "user-1"
         deceased_name:
           type: string
           description: Name of the deceased person
@@ -957,6 +1064,16 @@ components:
           format: date-time
           description: When the case was created
           example: "2024-01-10T08:00:00.000Z"
+        updated_at:
+          type: string
+          format: date-time
+          description: When the case was last updated
+          example: "2024-01-12T09:15:00.000Z"
+        case_users:
+          type: array
+          description: Collaborators linked to this case
+          items:
+            $ref: '#/components/schemas/CaseUserAccess'
 
     TaskTemplate:
       type: object
@@ -1141,6 +1258,52 @@ components:
           description: Timestamp when the response was generated
           example: "2024-01-15T11:00:00.000Z"
 
+    CasesResponse:
+      type: object
+      properties:
+        cases:
+          type: array
+          items:
+            $ref: '#/components/schemas/Case'
+          description: Array of cases the user can access
+        total_count:
+          type: integer
+          description: Total number of matching cases
+          example: 3
+        user_id:
+          type: string
+          format: uuid
+          description: ID of the authenticated user
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        user_role:
+          type: string
+          enum: [admin, user, executor]
+          description: Role of the authenticated user
+          example: "admin"
+        filtered_by_user:
+          type: string
+          format: uuid
+          nullable: true
+          description: User ID used for filtering (if any)
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the response was generated
+          example: "2024-01-15T11:00:00.000Z"
+
+    CaseUserAccess:
+      type: object
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          description: ID of the user linked to the case
+          example: "user-1"
+        profiles:
+          $ref: '#/components/schemas/UserProfile'
+      description: Mapping between a case and an associated user with optional profile details.
+
     ErrorResponse:
       type: object
       properties:
@@ -1186,6 +1349,9 @@ tags:
       Endpoints for managing funeral-related tasks and cases. These endpoints provide
       comprehensive task management functionality including task instances, steps,
       completion tracking, notes, and communication helpers.
+  - name: Cases
+    description: |
+      Endpoints for listing and managing funeral cases and their collaborators.
   - name: Articles
     description: |
       Endpoints for accessing reference articles and documentation related to funeral

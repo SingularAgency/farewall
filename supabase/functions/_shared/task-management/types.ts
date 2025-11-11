@@ -31,8 +31,8 @@ export interface UserProfile {
 
 export interface Case {
   id: string
-  deceased_name: string
-  date_of_death: string
+  deceased_name: string | null
+  date_of_death: string | null
   created_at: string
   updated_at: string
   case_users?: Array<{
@@ -60,6 +60,27 @@ export interface TaskTemplate {
   id: string
   name: string
   description: string
+  phase: 'immediately' | 'first-month' | 'months-2-3' | 'months-3-6' | 'beyond' | null
+  timeframe: string | null
+  priority: 'high' | 'medium' | 'low' | null
+  can_delegate: boolean
+  contact_methods: string[] | null
+  required_documents: string[] | null
+  why_it_matters: string | null
+  human_insight: string | null
+  who_to_contact: string | null
+  how_to_find_contact: string | null
+  what_to_expect: string | null
+  suggested_professionals: string | null
+  what_success_looks_like: string | null
+  suggested_quantity: string | null
+  delegation_requirements: string | null
+  resources: string[] | null
+  downloadable_guides: string[] | null
+  pro_tips: string | null
+  related_task_ids: string[] | null
+  unlocks_other_steps: boolean
+  depends_on_task_id: string | null
   created_at: string
   updated_at: string
 }
@@ -70,6 +91,7 @@ export interface TaskStep {
   title: string
   order: number
   instructions: string | null
+  step_type: 'action' | 'instruction'
   communication_helpers: Record<string, any> | null
   created_at: string
   updated_at: string
@@ -168,6 +190,7 @@ export interface TaskStepWithCompletion {
   title: string
   order: number
   instructions: string | null
+  step_type: 'action' | 'instruction'
   communication_helpers: Record<string, any> | null
   completed: boolean
   completed_at: string | null

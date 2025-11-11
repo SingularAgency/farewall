@@ -1,0 +1,1249 @@
+{
+    "metadata": {
+      "total_tasks": 20,
+      "created_at": "2025-11-11",
+      "description": "Complete task database with all steps and communication helpers for post-death administrative tasks"
+    },
+    "tasks": [
+      {
+        "id": "4b2f8000-9e33-46f5-8ae7-673c94796df0",
+        "title": "Request Multiple Certified Copies of the Death Certificate",
+        "description": "Obtain multiple certified copies—typically 10‑15—of the death certificate through the funeral home or county vital‑records office.",
+        "phase": "immediately",
+        "timeframe": "Within 24‑48 hours of death",
+        "priority": "high",
+        "canDelegate": true,
+        "contactMethods": ["In-Person", "Online", "Mail", "Phone"],
+        "requiredDocuments": [
+          "Government‑issued photo ID",
+          "Proof of relationship (marriage certificate or birth certificate)",
+          "Payment for certificate fees (varies by state; usually $10–25 each)"
+        ],
+        "whyItMatters": "Almost every other administrative task—insurance claims, Social Security, bank account changes—requires a certified copy. Ordering enough at once prevents costly delays.",
+        "humanInsight": "Funeral directors can usually submit the request on your behalf; ask them first. Order a few extras—replacing them later can take weeks.",
+        "whoToContact": "Funeral home director or county vital‑records office clerk",
+        "howToFindContact": "Search '[Your County] vital records office' online or ask the funeral director for direct numbers and forms.",
+        "whatToExpect": "A short form, payment, and a 1‑3 business‑day processing period. Some counties let you pay online and ship by overnight mail.",
+        "suggestedProfessionals": "Funeral director, estate attorney (if questions about who is authorized)",
+        "whatSuccessLooksLike": "You receive 10‑15 sealed, certified copies ready to distribute to institutions.",
+        "suggestedQuantity": "Order 10–15 certified copies up front.",
+        "delegationRequirements": "Signed authorization letter plus your ID copy if a friend or professional files the request for you.",
+        "resources": ["CDC Vital Records Office Finder"],
+        "downloadableGuides": ["death-certificate-request-template.pdf"],
+        "proTips": "Store originals in a fireproof envelope; send only certified copies by mail—never the original.",
+        "relatedTasks": ["File Death Claim with Life Insurance Company", "Notify Social Security Administration"],
+        "unlocksOtherSteps": true,
+        "dependsOn": null,
+        "completed": false,
+        "steps": [
+          {
+            "type": "action",
+            "instruction": "Call the funeral director to confirm they can file the request",
+            "contactMethod": "phone",
+            "phoneScript": "Hi, this is [Your Name]. My [relationship] passed away on [date], and I need to request certified death certificates. Can you help me file this request, or should I contact the vital records office directly? I'll need about 10-15 copies.",
+            "documentsNeeded": ["Date of death", "Full name of deceased", "Your relationship to deceased"]
+          },
+          {
+            "type": "instruction",
+            "instruction": "If NOT using funeral director: download your county's death-certificate application form."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Complete the form; specify number of certified copies (10-15)."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Gather required proof (ID, relationship)."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Submit form and payment online or in person at vital-records office."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Track shipment or pick up in person once ready."
+          },
+          {
+            "type": "instruction",
+            "instruction": "File copies in a secure folder; note how many remain after each use."
+          }
+        ]
+      },
+      {
+        "id": "574e2267-6f4c-4cf9-a1e7-6612e77797c1",
+        "title": "Pay Immediate Household Bills and Enable Auto‑Pay",
+        "description": "Prevent missed or late payments by covering essential household bills and turning on auto‑pay where available.",
+        "phase": "first-month",
+        "timeframe": "Within first 2 weeks",
+        "priority": "medium",
+        "canDelegate": true,
+        "contactMethods": ["Online", "Phone"],
+        "requiredDocuments": [
+          "Latest statements",
+          "Bank account or credit‑card details for auto‑pay setup"
+        ],
+        "whyItMatters": "Avoid late fees, credit damage, or service shut‑offs while you focus on larger estate matters.",
+        "humanInsight": "Freeze any non‑essential spending until you have a complete financial picture.",
+        "whoToContact": "Each service provider's billing department",
+        "howToFindContact": "Log in to online portals, check paper statements, or call customer‑service numbers on statements.",
+        "whatToExpect": "Most companies can flip auto‑pay on immediately once an online profile is verified.",
+        "suggestedProfessionals": "",
+        "whatSuccessLooksLike": "All critical bills marked paid and set to auto‑pay for at least the next 60 days.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "Online log‑in credentials or a notarized letter granting authorization.",
+        "resources": [],
+        "downloadableGuides": [],
+        "proTips": "Create a shared spreadsheet of due dates so helpers know what's covered.",
+        "relatedTasks": ["Cancel Non‑Essential Subscriptions", "Transfer Technology and Utility Accounts"],
+        "unlocksOtherSteps": false,
+        "dependsOn": null,
+        "completed": false,
+        "steps": [
+          {
+            "type": "instruction",
+            "instruction": "List all essential bills: mortgage/rent, utilities, phones, insurance."
+          },
+          {
+            "type": "action",
+            "instruction": "Contact each provider to pay outstanding balances and set up auto-pay",
+            "contactMethod": "phone",
+            "phoneScript": "Hello, I'm calling about account [ACCOUNT NUMBER]. I need to pay any outstanding balance and set up automatic payments. Can you help me with the current balance and set up auto-pay from my bank account?",
+            "documentsNeeded": ["Account numbers", "Bank account or credit card for auto-pay setup"]
+          },
+          {
+            "type": "instruction",
+            "instruction": "Pay any outstanding balances immediately."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Turn on auto-pay for at least two billing cycles."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Document confirmation numbers and next-due dates."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Share an up-to-date status list with any helpers."
+          }
+        ]
+      },
+      {
+        "id": "2706d589-2d28-4f1e-9ea4-d937bddab3a9",
+        "title": "Cancel Non‑Essential Subscriptions and Memberships",
+        "description": "Stop recurring charges for services the deceased no longer needs (streaming, gym, magazines, apps).",
+        "phase": "first-month",
+        "timeframe": "Within first 30 days",
+        "priority": "low",
+        "canDelegate": true,
+        "contactMethods": ["Online", "Email", "Phone"],
+        "requiredDocuments": ["Login credentials or last billing statement"],
+        "whyItMatters": "Reduces monthly spend and simplifies financial tracking.",
+        "humanInsight": "Search email inboxes for the word 'receipt' to find hidden subscriptions.",
+        "whoToContact": "Each subscription's customer‑service team or online cancellation form",
+        "howToFindContact": "Log in to Apple/Google subscriptions, bank statements, or use a subscription‑tracker app.",
+        "whatToExpect": "Most digital services cancel immediately; some gyms require written notice.",
+        "suggestedProfessionals": "",
+        "whatSuccessLooksLike": "Confirmation emails show zero future billing dates.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "List of services + logins (or power of attorney if required).",
+        "resources": ["Truebill/RocketMoney Subscription Tracker"],
+        "downloadableGuides": [],
+        "proTips": "Ask banks for a 12‑month transaction history to spot annual renewals.",
+        "relatedTasks": ["Pay Immediate Household Bills and Enable Auto‑Pay"],
+        "unlocksOtherSteps": false,
+        "dependsOn": null,
+        "completed": false,
+        "steps": [
+          {
+            "type": "instruction",
+            "instruction": "Download last 3 months of bank/credit-card statements."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Highlight charges <$20 or labeled as subscriptions."
+          },
+          {
+            "type": "action",
+            "instruction": "Log in or call each service to cancel auto-renew",
+            "contactMethod": "phone",
+            "phoneScript": "Hello, I need to cancel my subscription/membership effective immediately. The account is under [DECEASED NAME] who passed away on [date]. Can you help me cancel this and confirm there will be no further charges?",
+            "documentsNeeded": ["Account number or email address", "Date of death"]
+          },
+          {
+            "type": "instruction",
+            "instruction": "Screenshot or save each cancellation confirmation."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Set calendar reminder to verify no further charges next cycle."
+          }
+        ]
+      },
+      {
+        "id": "dd5a79f0-459e-4507-a95e-1d1581e6809f",
+        "title": "Identify a New Emergency Contact",
+        "description": "Designate a new primary emergency contact on medical, school, and work records if the deceased previously filled that role.",
+        "phase": "first-month",
+        "timeframe": "Within first 30 days",
+        "priority": "low",
+        "canDelegate": false,
+        "contactMethods": ["Online", "Email", "In-Person"],
+        "requiredDocuments": ["Photo ID", "Relationship documentation (if required)"],
+        "whyItMatters": "Ensures someone can be reached quickly in an emergency.",
+        "humanInsight": "Choose someone nearby who answers calls reliably and knows key medical details.",
+        "whoToContact": "Schools, doctors, employers, and any organization that lists an emergency contact.",
+        "howToFindContact": "Log in to each institution's portal or call the front desk.",
+        "whatToExpect": "Typically a simple form or online field change; must be signed or initialed.",
+        "suggestedProfessionals": "",
+        "whatSuccessLooksLike": "All records list the new emergency contact and confirm receipt.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "",
+        "resources": [],
+        "downloadableGuides": [],
+        "proTips": "Keep a digital note with all emergency contacts and share with close family.",
+        "relatedTasks": [],
+        "unlocksOtherSteps": false,
+        "dependsOn": null,
+        "completed": false,
+        "steps": [
+          {
+            "type": "instruction",
+            "instruction": "Make a list of every institution that has an emergency-contact form."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Print or download their change request forms."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Complete forms with new contact details and sign."
+          },
+          {
+            "type": "action",
+            "instruction": "Submit forms and notify institutions of the change",
+            "contactMethod": "email",
+            "emailTemplate": "Subject: Emergency Contact Update - [YOUR NAME]\n\nDear [Institution Name],\n\nI am writing to update my emergency contact information in your records. My previous emergency contact, [DECEASED NAME], passed away on [DATE].\n\nPlease update my emergency contact to:\nName: [NEW CONTACT NAME]\nRelationship: [RELATIONSHIP]\nPhone: [PHONE NUMBER]\nEmail: [EMAIL ADDRESS]\n\nI have attached the completed emergency contact form for your records.\n\nPlease confirm this change has been processed.\n\nThank you,\n[YOUR NAME]\n[YOUR CONTACT INFO]",
+            "documentsNeeded": ["Completed emergency contact form", "New contact's information"]
+          },
+          {
+            "type": "instruction",
+            "instruction": "Confirm changes were processed by checking portals or calling back."
+          }
+        ]
+      },
+      {
+        "id": "28d2819d-25e0-4d80-9b1f-074d2888e2ec",
+        "title": "Transfer Technology and Utility Accounts",
+        "description": "Update or transfer accounts such as internet, phone, electricity, streaming, security systems, password managers, photo clouds, and crypto wallets.",
+        "phase": "first-month",
+        "timeframe": "Within 30 days",
+        "priority": "medium",
+        "canDelegate": true,
+        "contactMethods": ["Phone", "Email", "Online"],
+        "requiredDocuments": [
+          "Death certificate (certified copy)",
+          "Account numbers or login credentials",
+          "Letter of authorization if delegating"
+        ],
+        "whyItMatters": "Prevents service interruptions and avoids accidental data or asset loss.",
+        "humanInsight": "Create a master list of every service and cross them off as you confirm the transfer.",
+        "whoToContact": "Customer‑service/billing department of each provider.",
+        "howToFindContact": "Look up numbers on recent bills or the provider's official website; avoid numbers from email/spam.",
+        "whatToExpect": "Most transfers are immediate after verification; crypto may require additional security steps.",
+        "suggestedProfessionals": "Tech‑savvy family member or IT consultant for complex setups.",
+        "whatSuccessLooksLike": "All services either canceled or re‑registered under the surviving spouse's name with uninterrupted access.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "Written authorization and certified copy of death certificate.",
+        "resources": [],
+        "downloadableGuides": [],
+        "proTips": "Don't delete password‑manager accounts; export passwords first.",
+        "relatedTasks": ["Notify Key Institutions"],
+        "unlocksOtherSteps": false,
+        "dependsOn": "Request Multiple Certified Copies of the Death Certificate",
+        "completed": false,
+        "steps": [
+          {
+            "type": "instruction",
+            "instruction": "Make a full list of tech and utility providers (use past 3 months of bills)."
+          },
+          {
+            "type": "action",
+            "instruction": "Call each provider to transfer or cancel service",
+            "contactMethod": "phone",
+            "phoneScript": "Hello, I need to update the account holder information for account #[ACCOUNT NUMBER]. The primary account holder, [DECEASED NAME], passed away on [DATE]. I need to either transfer the account to my name or cancel the service. What is your process for this?",
+            "documentsNeeded": ["Account number", "Death certificate (certified copy)", "Your ID for verification"]
+          },
+          {
+            "type": "instruction",
+            "instruction": "Repeat for electricity, water, trash, and security devices."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Log in to streaming services and update payment info or cancel."
+          },
+          {
+            "type": "instruction",
+            "instruction": "For password managers or crypto wallets, follow provider's deceased-user procedure for transfer or recovery."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Record confirmation numbers and effective transfer dates."
+          }
+        ]
+      },
+      {
+        "id": "34379d19-9e35-446c-88bb-686f23389dd3",
+        "title": "Schedule Social Security Appointments",
+        "description": "Set up in‑person appointments with the Social Security Administration (SSA) for survivor and dependent benefits.",
+        "phase": "first-month",
+        "timeframe": "Within 30 days",
+        "priority": "high",
+        "canDelegate": true,
+        "contactMethods": ["Phone"],
+        "requiredDocuments": [
+          "Death certificate (certified copy)",
+          "Marriage certificate (for spousal benefits)",
+          "Birth certificates of dependent children"
+        ],
+        "whyItMatters": "Secures ongoing income for survivors and avoids benefit overpayments that must be repaid.",
+        "humanInsight": "Call early in the morning for shorter hold times.",
+        "whoToContact": "Social Security Administration 1‑800‑772‑1213",
+        "howToFindContact": "Use ssa.gov/locator to confirm your local office and schedule options.",
+        "whatToExpect": "A phone agent will schedule an in-office visit; wait times for appointments can be 1-2 weeks.",
+        "suggestedProfessionals": "Social Security disability attorney (if complex benefit questions)",
+        "whatSuccessLooksLike": "Appointment date confirmed and written on your calendar.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "Only scheduling can be delegated; survivor must attend in person.",
+        "resources": ["SSA Survivor Benefits FAQ"],
+        "downloadableGuides": [],
+        "proTips": "Ask the agent to list every document you'll need—bringing extras prevents repeat visits.",
+        "relatedTasks": ["Notify Social Security Administration"],
+        "unlocksOtherSteps": false,
+        "dependsOn": "Request Multiple Certified Copies of the Death Certificate",
+        "completed": false,
+        "steps": [
+          {
+            "type": "action",
+            "instruction": "Call Social Security Administration to schedule appointment",
+            "contactMethod": "phone",
+            "phoneScript": "Hello, I need to schedule an appointment to report a death and apply for survivor benefits. My [relationship] passed away on [date], and I need to apply for survivor benefits for myself and my children. Their Social Security number was [SSN]. What is the earliest appointment available at my local office?",
+            "documentsNeeded": ["Deceased's Social Security number", "Your Social Security number", "List of dependent children and their SSNs"]
+          },
+          {
+            "type": "instruction",
+            "instruction": "Provide deceased's SSN and survivors' details to the agent."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Request earliest available in-office appointment."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Write down date, time, and the documents they require."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Arrange transportation and child care if needed."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Set a reminder 24 hours before the appointment."
+          }
+        ]
+      },
+      {
+        "id": "9abac705-d2d1-4489-bbea-1ba2cf7b0528",
+        "title": "File Death Claim with Life Insurance Company",
+        "description": "Submit claim forms and required documents to the insurer to receive the policy payout.",
+        "phase": "immediately",
+        "timeframe": "Within first week",
+        "priority": "high",
+        "canDelegate": false,
+        "contactMethods": ["Phone", "Email", "Mail"],
+        "requiredDocuments": [
+          "Death certificate (certified copy)",
+          "Policy number",
+          "Government ID of beneficiary",
+          "Completed claim form"
+        ],
+        "whyItMatters": "Provides critical funds for funeral costs, debts, and living expenses.",
+        "humanInsight": "Insurers generally accept certified copies—don't mail your only original.",
+        "whoToContact": "Insurer's claims department (number on policy docs)",
+        "howToFindContact": "Call agent of record or visit insurer's website for claims portal.",
+        "whatToExpect": "Claims rep verifies documents and issues payout within 2-4 weeks.",
+        "suggestedProfessionals": "Insurance agent or financial advisor",
+        "whatSuccessLooksLike": "Payout deposited or check received; policy marked closed.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "Beneficiary must sign claim form (wet or e‑signature).",
+        "resources": [],
+        "downloadableGuides": ["life-insurance-claim-checklist.pdf"],
+        "proTips": "Keep a copy of every form you submit; note date/time of all calls.",
+        "relatedTasks": ["Update Insurance Information", "Contact Financial Advisor"],
+        "unlocksOtherSteps": false,
+        "dependsOn": "Request Multiple Certified Copies of the Death Certificate",
+        "completed": false,
+        "steps": [
+          {
+            "type": "instruction",
+            "instruction": "Locate the policy and confirm you are named beneficiary."
+          },
+          {
+            "type": "action",
+            "instruction": "Call the claims department to initiate your claim",
+            "contactMethod": "phone",
+            "phoneScript": "Hello, I need to file a life insurance claim. The policyholder, [DECEASED NAME], passed away on [DATE]. I am the named beneficiary on policy number [POLICY NUMBER]. Can you please start the claims process and tell me what documents I need to submit?",
+            "documentsNeeded": ["Policy number", "Your relationship to deceased", "Preliminary cause of death if known"]
+          },
+          {
+            "type": "instruction",
+            "instruction": "Complete claim form; attach certified death certificate."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Submit via insurer's portal or certified mail."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Track claim status weekly until payout arrives."
+          }
+        ]
+      },
+      {
+        "id": "0cd648d6-864f-4b97-b5fc-e9c14d085059",
+        "title": "Contact Employer Regarding Benefits",
+        "description": "Notify employer, request final paycheck, review life insurance through work, and inquire about COBRA or retirement benefits.",
+        "phase": "first-month",
+        "timeframe": "Within 2 weeks",
+        "priority": "medium",
+        "canDelegate": true,
+        "contactMethods": ["Phone", "Email"],
+        "requiredDocuments": [
+          "Death certificate (certified copy)",
+          "Employee ID or personnel info"
+        ],
+        "whyItMatters": "Secures final wages and uncovers any company‑sponsored life insurance or pension.",
+        "humanInsight": "Ask HR if the company offers free grief counseling or legal aid—the benefit list is often buried.",
+        "whoToContact": "HR department or direct supervisor",
+        "howToFindContact": "Call main company number; request HR. Or email HR@company.com (common convention).",
+        "whatToExpect": "HR will initiate payroll and benefit termination; you may receive forms by email.",
+        "suggestedProfessionals": "Employment attorney (if disputes)",
+        "whatSuccessLooksLike": "Final pay, benefits outline, COBRA packet received.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "Authorization letter and death certificate copy.",
+        "resources": [],
+        "downloadableGuides": [],
+        "proTips": "Ask specifically about group life insurance—many families miss this payout.",
+        "relatedTasks": ["File Death Claim with Life Insurance Company"],
+        "unlocksOtherSteps": false,
+        "dependsOn": "Request Multiple Certified Copies of the Death Certificate",
+        "completed": false,
+        "steps": [
+          {
+            "type": "action",
+            "instruction": "Contact HR department to report the death",
+            "contactMethod": "phone",
+            "phoneScript": "Hello, I'm calling to report that [DECEASED NAME], employee ID [ID NUMBER], passed away on [DATE]. I need to discuss final paycheck, benefits, and any company life insurance policies. Can you walk me through what needs to be done and what documents you'll need from me?",
+            "documentsNeeded": ["Employee ID or last pay stub", "Death certificate (certified copy)", "Your relationship to deceased"]
+          },
+          {
+            "type": "instruction",
+            "instruction": "Request details on final paycheck and unused PTO payout."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Ask for a list of company-provided benefits (life, 401k, pension)."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Provide death certificate copy and complete any forms."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Track expected payment dates and benefit terminations."
+          }
+        ]
+      },
+      {
+        "id": "c64b4ac9-ca2e-4e0d-88ec-4da5b33d1dc9",
+        "title": "Notify Social Security Administration",
+        "description": "Report the death and apply in person for survivor and dependent benefits.",
+        "phase": "first-month",
+        "timeframe": "Within 30 days (often same day as appointment)",
+        "priority": "high",
+        "canDelegate": false,
+        "contactMethods": ["In-Person"],
+        "requiredDocuments": [
+          "Death certificate (certified copy)",
+          "Marriage certificate",
+          "Birth certificates of dependent children",
+          "IDs and Social Security numbers for all applicants"
+        ],
+        "whyItMatters": "Stops overpayments and starts monthly survivor income.",
+        "humanInsight": "Bring spare certified copies in case another department needs one.",
+        "whoToContact": "Local Social Security field office",
+        "howToFindContact": "Use SSA office locator (ssa.gov/locator) or number given when appointment was scheduled.",
+        "whatToExpect": "An agent will review documents, input data, and confirm benefits start dates.",
+        "suggestedProfessionals": "Social Security attorney (only if claim complexity arises)",
+        "whatSuccessLooksLike": "Survivor and/or dependent benefits approved and scheduled.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "",
+        "resources": ["SSA Survivor Benefits Checklist"],
+        "downloadableGuides": [],
+        "proTips": "Ask for a receipt showing your benefits claim was filed—this speeds problem resolution.",
+        "relatedTasks": ["Schedule Social Security Appointments"],
+        "unlocksOtherSteps": false,
+        "dependsOn": "Schedule Social Security Appointments",
+        "completed": false,
+        "steps": [
+          {
+            "type": "instruction",
+            "instruction": "Arrive at SSA office 15 minutes early with all documents."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Take a ticket; wait to be called."
+          },
+          {
+            "type": "action",
+            "instruction": "Meet with Social Security representative",
+            "contactMethod": "in-person",
+            "inPersonTalking": [
+              "State clearly: 'I'm here to report a death and apply for survivor benefits'",
+              "Provide the deceased's full name, Social Security number, and date of death",
+              "Explain your relationship to the deceased and current living situation",
+              "Ask specifically about survivor benefits, dependent benefits, and any lump-sum death payment",
+              "Request a written summary of all benefits you're eligible for and when they start",
+              "Ask when you can expect the first payment and how it will be delivered"
+            ],
+            "documentsNeeded": ["Death certificate (certified copy)", "Marriage certificate", "Birth certificates for children", "Photo IDs for all applicants"]
+          },
+          {
+            "type": "instruction",
+            "instruction": "Receive printed summary of benefits and start dates."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Verify accuracy before leaving."
+          }
+        ]
+      },
+      {
+        "id": "f12d0c64-9c3e-44c3-9b3e-51e5b2f4e7b1",
+        "title": "Update Insurance Information (Health, Auto, Home, Umbrella)",
+        "description": "Remove the deceased from all active insurance policies, add surviving spouse or executor as primary, and confirm new premiums.",
+        "phase": "first-month",
+        "timeframe": "Within 30 days",
+        "priority": "medium",
+        "canDelegate": true,
+        "contactMethods": ["Phone", "Email", "Online"],
+        "requiredDocuments": [
+          "Death certificate (certified copy)",
+          "Policy numbers",
+          "Driver's license or other government ID"
+        ],
+        "whyItMatters": "Prevents mistaken billing and ensures you're properly covered at the correct rate.",
+        "humanInsight": "Ask if there's a prorated refund for unused premiums on the deceased's portion.",
+        "whoToContact": "Each insurer's customer-service or agent of record",
+        "howToFindContact": "Policy paperwork, insurer website, or agent business card.",
+        "whatToExpect": "CSR will verify identity, request the death certificate, and email confirmation of changes.",
+        "suggestedProfessionals": "Independent insurance broker (for rate shopping)",
+        "whatSuccessLooksLike": "All policies list the correct named insured and new premiums take effect.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "Letter of authorization plus certificate copy.",
+        "resources": [],
+        "downloadableGuides": [],
+        "proTips": "Combine auto & home on one carrier to save 10–15% once names are updated.",
+        "relatedTasks": ["File Death Claim with Life Insurance Company"],
+        "unlocksOtherSteps": false,
+        "dependsOn": "Request Multiple Certified Copies of the Death Certificate",
+        "completed": false,
+        "steps": [
+          {
+            "type": "instruction",
+            "instruction": "List every active policy and note renewal dates."
+          },
+          {
+            "type": "action",
+            "instruction": "Call each insurer to report the death and update policies",
+            "contactMethod": "phone",
+            "phoneScript": "Hello, I'm calling to report that my [spouse/parent] who was on our policy has passed away. I need to remove them from the policy and update the billing information. The policy number is [NUMBER]. Can you help me with this process and let me know what documents you'll need?",
+            "documentsNeeded": ["Policy number", "Death certificate (certified copy)", "Your driver's license or ID"]
+          },
+          {
+            "type": "action",
+            "instruction": "Submit required documentation to insurance company",
+            "contactMethod": "email",
+            "emailTemplate": "Subject: Policy Update - Death Notification for [DECEASED NAME]\n\nDear [Insurance Company],\n\nI am writing to notify you of the death of [DECEASED NAME], who was a policyholder/covered person on policy #[POLICY NUMBER].\n\nPlease remove [DECEASED NAME] from the policy effective [DATE OF DEATH] and update the policy to reflect [NEW PRIMARY INSURED NAME] as the primary policyholder.\n\nI have attached a certified copy of the death certificate. Please confirm the changes and send me an updated declarations page showing the new premium amount.\n\nIf you need any additional documentation, please let me know.\n\nThank you for your assistance.\n\nSincerely,\n[YOUR NAME]\n[PHONE NUMBER]",
+            "documentsNeeded": ["Certified death certificate (attached)", "Copy of current policy"]
+          },
+          {
+            "type": "instruction",
+            "instruction": "Ask for new rate or refund confirmation in writing."
+          },
+          {
+            "type": "instruction",
+            "instruction": "File updated declarations pages in your estate folder."
+          }
+        ]
+      },
+      {
+        "id": "d8800e24-2fb7-46e6-9df0-d99162da7a8d",
+        "title": "Claim 401(k) Plan",
+        "description": "Initiate rollover or direct payout of the deceased's employer-sponsored 401(k).",
+        "phase": "months-2-3",
+        "timeframe": "Within 90 days",
+        "priority": "medium",
+        "canDelegate": false,
+        "contactMethods": ["Phone", "Mail", "Online"],
+        "requiredDocuments": [
+          "Death certificate (certified copy)",
+          "401(k) plan beneficiary form",
+          "Rollover IRA account details (if applicable)"
+        ],
+        "whyItMatters": "Delays can trigger required minimum distributions and tax penalties.",
+        "humanInsight": "Rolling to an inherited IRA often preserves tax advantages—consult a fiduciary first.",
+        "whoToContact": "Plan administrator or HR benefits center",
+        "howToFindContact": "Statement footer, employer HR, or Vanguard/Fidelity call center depending on custodian.",
+        "whatToExpect": "Forms packet, choice of lump-sum or rollover, 2-4 week processing.",
+        "suggestedProfessionals": "Fiduciary financial advisor, CPA",
+        "whatSuccessLooksLike": "Assets transferred into the survivor's inherited IRA or paid out as elected.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "Beneficiary must sign; POA generally not accepted after death.",
+        "resources": ["IRS Publication 590-B"],
+        "downloadableGuides": ["inherited-ira-flowchart.pdf"],
+        "proTips": "Check for after-tax (Roth) sub-accounts; they follow different rules.",
+        "relatedTasks": ["Contact Employer Regarding Benefits", "Contact Financial Advisor"],
+        "unlocksOtherSteps": false,
+        "dependsOn": "Contact Employer Regarding Benefits",
+        "completed": false,
+        "steps": [
+          {
+            "type": "action",
+            "instruction": "Call plan administrator to request beneficiary claim forms",
+            "contactMethod": "phone",
+            "phoneScript": "Hello, I'm calling regarding the 401(k) plan for [DECEASED NAME] who passed away on [DATE]. I am the named beneficiary and need to start the claim process. Can you send me the beneficiary claim packet and explain my options for receiving the funds?",
+            "documentsNeeded": ["Deceased's Social Security number", "Plan account number if available", "Your relationship to deceased"]
+          },
+          {
+            "type": "instruction",
+            "instruction": "Choose rollover vs. lump-sum with your advisor/CPA."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Complete and notarize forms; attach death certificate."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Mail via certified mail; keep tracking."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Confirm receipt and transfer; save final statement."
+          }
+        ]
+      },
+      {
+        "id": "0ffe71e3-6354-4967-8879-09786e41cde3",
+        "title": "Contact Pension Plan Administrator",
+        "description": "Claim any pension benefits or survivor annuity the deceased earned.",
+        "phase": "months-2-3",
+        "timeframe": "Within 3 months",
+        "priority": "medium",
+        "canDelegate": false,
+        "contactMethods": ["Phone", "Mail"],
+        "requiredDocuments": [
+          "Death certificate (certified copy)",
+          "Marriage certificate (if spousal survivor benefit)",
+          "Pension plan statement"
+        ],
+        "whyItMatters": "Pension income may replace part of the lost salary and may be forfeited if claims aren't timely.",
+        "humanInsight": "Some pensions allow retroactive lump-sum of missed payments if filed within a year; ask specifically.",
+        "whoToContact": "Pension plan administrator (number on annual benefit statement)",
+        "howToFindContact": "HR benefits center or National Registry of Unclaimed Retirement Benefits.",
+        "whatToExpect": "Paper forms, proof of identity, optional direct-deposit setup.",
+        "suggestedProfessionals": "Pension consultant, CPA",
+        "whatSuccessLooksLike": "Monthly survivor payments begin or lump-sum benefit received.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "",
+        "resources": [],
+        "downloadableGuides": [],
+        "proTips": "If you can't locate the plan, file Form PBGC-100 to search the Pension Benefit Guaranty Corporation.",
+        "relatedTasks": ["Claim 401(k) Plan"],
+        "unlocksOtherSteps": false,
+        "dependsOn": "Request Multiple Certified Copies of the Death Certificate",
+        "completed": false,
+        "steps": [
+          {
+            "type": "instruction",
+            "instruction": "Locate pension contact info on latest statement."
+          },
+          {
+            "type": "action",
+            "instruction": "Call pension administrator to request survivor claim kit",
+            "contactMethod": "phone",
+            "phoneScript": "Hello, I'm calling about the pension plan for [DECEASED NAME] who passed away on [DATE]. I believe there may be survivor benefits available. Can you please send me the survivor claim forms and explain what benefits I might be eligible for?",
+            "documentsNeeded": ["Deceased's Social Security number", "Marriage certificate (if applicable)", "Pension plan number if available"]
+          },
+          {
+            "type": "instruction",
+            "instruction": "Complete forms; select payout option."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Attach required documents; mail certified."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Call to verify processing and first payment date."
+          }
+        ]
+      },
+      {
+        "id": "323b80d8-3fbe-4c3b-a765-795a2b7b823e",
+        "title": "Execute and Update Will and Estate Plan",
+        "description": "Meet with estate attorney to file will with probate court (if required) and execute any updates for the surviving spouse.",
+        "phase": "months-2-3",
+        "timeframe": "Within 90 days",
+        "priority": "high",
+        "canDelegate": false,
+        "contactMethods": ["In-Person", "Phone", "Email"],
+        "requiredDocuments": [
+          "Original will",
+          "Death certificate (certified copy)",
+          "List of heirs and assets"
+        ],
+        "whyItMatters": "Formally transfers property titles and grants executor authority to complete the estate.",
+        "humanInsight": "Bring a list of questions—lawyer meetings bill by the hour.",
+        "whoToContact": "Estate attorney",
+        "howToFindContact": "State bar referral service or recommendations from financial advisor.",
+        "whatToExpect": "Attorney will review documents, outline probate steps, and draft any needed updates.",
+        "suggestedProfessionals": "Estate attorney (mandatory), notary",
+        "whatSuccessLooksLike": "Court accepts will, letters testamentary issued, and updated documents signed.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "",
+        "resources": [],
+        "downloadableGuides": [],
+        "proTips": "Record the meeting to capture instructions (ask permission).",
+        "relatedTasks": ["Administer Trust or Initiate Probate Proceedings"],
+        "unlocksOtherSteps": true,
+        "dependsOn": "Request Multiple Certified Copies of the Death Certificate",
+        "completed": false,
+        "steps": [
+          {
+            "type": "instruction",
+            "instruction": "Book appointment with estate attorney."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Provide original will and death certificate."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Review asset list; confirm beneficiaries."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Attorney files will with probate court (if needed)."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Sign updated powers of attorney, trusts, or deeds as advised."
+          }
+        ]
+      },
+      {
+        "id": "4dce1e1f-16f1-4049-9047-14a8e52f1bb0",
+        "title": "Administer Trust or Initiate Probate Proceedings",
+        "description": "If a revocable trust exists, begin trust administration; if not, open probate with the local court.",
+        "phase": "months-2-3",
+        "timeframe": "90-120 days",
+        "priority": "high",
+        "canDelegate": false,
+        "contactMethods": ["In-Person", "Online"],
+        "requiredDocuments": [
+          "Certified death certificate",
+          "Trust document or will",
+          "Asset inventory"
+        ],
+        "whyItMatters": "Legally transfers ownership of titled assets and protects the estate from claims.",
+        "humanInsight": "Probate timelines vary by county—ask the clerk for typical duration.",
+        "whoToContact": "Estate attorney or probate court clerk",
+        "howToFindContact": "Search '[County] probate court' or ask your attorney.",
+        "whatToExpect": "Court hearings, notices to creditors, and formal accounting; 6-12 months typical.",
+        "suggestedProfessionals": "Estate attorney, CPA",
+        "whatSuccessLooksLike": "Court issues final order or trust distributes assets per terms.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "",
+        "resources": [],
+        "downloadableGuides": ["probate-checklist.pdf"],
+        "proTips": "Keep a dedicated estate checking account for all disbursements and reimbursements.",
+        "relatedTasks": ["Execute and Update Will and Estate Plan"],
+        "unlocksOtherSteps": true,
+        "dependsOn": "Execute and Update Will and Estate Plan",
+        "completed": false,
+        "steps": [
+          {
+            "type": "instruction",
+            "instruction": "Meet attorney to decide trust vs. probate path."
+          },
+          {
+            "type": "instruction",
+            "instruction": "File initial petition and pay court fees (probate) OR sign trustee acceptance (trust)."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Publish notice to creditors as required."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Inventory assets and file with court/trust beneficiaries."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Distribute assets per court order or trust terms."
+          }
+        ]
+      },
+      {
+        "id": "b92ed511-6d9e-4845-927c-cdb1c6bfb795",
+        "title": "File Estate Tax Return (Form 706)",
+        "description": "Prepare and submit the federal estate-tax return if the estate exceeds the IRS exemption limit.",
+        "phase": "months-3-6",
+        "timeframe": "Due 9 months after date of death",
+        "priority": "medium",
+        "canDelegate": false,
+        "contactMethods": ["In-Person", "Mail"],
+        "requiredDocuments": [
+          "Certified death certificate",
+          "Completed Form 706",
+          "Supporting asset valuations"
+        ],
+        "whyItMatters": "Avoids IRS penalties and allows portability election for the surviving spouse.",
+        "humanInsight": "Even if below the limit, filing may preserve portability—consult your CPA.",
+        "whoToContact": "CPA or estate attorney",
+        "howToFindContact": "Referrals or AICPA directory.",
+        "whatToExpect": "Extensive schedules; possible IRS review 6-12 months later.",
+        "suggestedProfessionals": "CPA specializing in estates",
+        "whatSuccessLooksLike": "IRS acceptance letter or proof of filing.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "",
+        "resources": ["Form 706 Instructions"],
+        "downloadableGuides": [],
+        "proTips": "Request a 6-month extension with Form 4768 if documents aren't ready.",
+        "relatedTasks": ["Contact Accountant or Tax Preparer"],
+        "unlocksOtherSteps": false,
+        "dependsOn": "Administer Trust or Initiate Probate Proceedings",
+        "completed": false,
+        "steps": [
+          {
+            "type": "instruction",
+            "instruction": "Engage CPA; deliver asset valuations and statements."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Review draft Form 706 schedules A-O."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Sign and date final return."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Mail return via certified mail with tracking."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Save stamped copy and proof of delivery."
+          }
+        ]
+      },
+      {
+        "id": "110820b5-812a-41de-832f-35e9ecafcf6d",
+        "title": "File Deceased Spouse's Final Income Tax Return",
+        "description": "Submit IRS Form 1040 (and state return) for the year of death, marked 'Deceased'.",
+        "phase": "months-2-3",
+        "timeframe": "Due on regular tax deadline (April 15) unless extension filed",
+        "priority": "medium",
+        "canDelegate": false,
+        "contactMethods": ["Online", "Mail"],
+        "requiredDocuments": [
+          "W-2s, 1099s, K-1s",
+          "Death certificate copy",
+          "Form 1310 (if refund due to estate)"
+        ],
+        "whyItMatters": "Settles IRS obligations; refunds go to estate, not individual.",
+        "humanInsight": "Use 'Married Filing Jointly' for the year of death to capture higher deductions.",
+        "whoToContact": "CPA or enrolled agent",
+        "howToFindContact": "IRS Directory of Preparers or referrals.",
+        "whatToExpect": "Standard tax-prep process; check 'Deceased' box on top of Form 1040.",
+        "suggestedProfessionals": "CPA, enrolled agent",
+        "whatSuccessLooksLike": "IRS transcript shows return accepted and any refund issued.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "",
+        "resources": [],
+        "downloadableGuides": [],
+        "proTips": "If refund is due, file Form 1310 to claim it on behalf of the estate.",
+        "relatedTasks": ["Begin Collecting Date-of-Death Statements"],
+        "unlocksOtherSteps": false,
+        "dependsOn": "Begin Collecting Date-of-Death Statements",
+        "completed": false,
+        "steps": [
+          {
+            "type": "instruction",
+            "instruction": "Gather all income documents (W-2s, 1099s, etc.)."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Deliver to CPA along with death certificate copy."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Review draft return, ensure 'Deceased' noted beside name."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Sign and e-file or mail with tracking."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Save acceptance notice and refund confirmation."
+          }
+        ]
+      },
+      {
+        "id": "caaaf141-fc72-4539-a5d8-9b2bd1d825e7",
+        "title": "Begin Collecting Date-of-Death Account Statements",
+        "description": "Request bank, brokerage, and retirement account statements showing balances on the date of death.",
+        "phase": "months-2-3",
+        "timeframe": "Within 60 days",
+        "priority": "high",
+        "canDelegate": true,
+        "contactMethods": ["Phone", "Online", "Mail"],
+        "requiredDocuments": [
+          "Certified death certificate",
+          "Executor's letters testamentary or trust certificate"
+        ],
+        "whyItMatters": "Needed for estate inventory, cost basis adjustment, and tax returns.",
+        "humanInsight": "Ask for PDF statements stamped 'Date of Death'—saves CPA time.",
+        "whoToContact": "Each bank or brokerage's estate department",
+        "howToFindContact": "Look up 'estate department' on institution website or call main line.",
+        "whatToExpect": "Some require mail-in request; allow 1-2 weeks per institution.",
+        "suggestedProfessionals": "CPA, financial advisor",
+        "whatSuccessLooksLike": "All statements received and filed in estate binder.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "Executor documentation plus certificate copies.",
+        "resources": [],
+        "downloadableGuides": [],
+        "proTips": "Create separate folders by institution to avoid mix-ups.",
+        "relatedTasks": ["Adjust Cost Basis", "File Estate Tax Return"],
+        "unlocksOtherSteps": true,
+        "dependsOn": "Request Multiple Certified Copies of the Death Certificate",
+        "completed": false,
+        "steps": [
+          {
+            "type": "instruction",
+            "instruction": "List every financial institution from prior statements."
+          },
+          {
+            "type": "action",
+            "instruction": "Call each estate department to request date-of-death statements",
+            "contactMethod": "phone",
+            "phoneScript": "Hello, I'm the executor for the estate of [DECEASED NAME] who passed away on [DATE]. I need to request date-of-death account statements for all accounts held with your institution. What is your process for this and what documentation do you need?",
+            "documentsNeeded": ["Letters testamentary or trust certificate", "Death certificate (certified copy)", "List of known account numbers"]
+          },
+          {
+            "type": "action",
+            "instruction": "Submit formal written request to financial institutions",
+            "contactMethod": "mail",
+            "emailTemplate": "Subject: Request for Date-of-Death Account Statements - Estate of [DECEASED NAME]\n\nDear Estate Department,\n\nI am writing to request date-of-death account statements for all accounts held by [DECEASED NAME] (SSN: XXX-XX-XXXX) who passed away on [DATE OF DEATH].\n\nAs the court-appointed executor/trustee, I need these statements for estate administration and tax purposes. Please provide statements showing account balances and holdings as of [DATE OF DEATH] for:\n\n- All checking and savings accounts\n- Investment/brokerage accounts\n- Retirement accounts (401k, IRA, etc.)\n- Any other accounts or services\n\nEnclosed please find:\n- Certified copy of death certificate\n- Copy of Letters Testamentary/Trust Certificate\n- Copy of my identification\n\nPlease mail the statements to the address below or advise if you have a secure electronic delivery option.\n\nThank you for your assistance.\n\nSincerely,\n[YOUR NAME], Executor/Trustee\n[MAILING ADDRESS]\n[PHONE NUMBER]",
+            "documentsNeeded": ["Executor documentation", "Certified death certificate copy", "Your photo ID copy"]
+          },
+          {
+            "type": "instruction",
+            "instruction": "Send requests; track receipt dates."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Upload PDFs to secure cloud and label clearly."
+          }
+        ]
+      },
+      {
+        "id": "a068ffc6-34f9-4d63-b2ef-7c2e0050c9f8",
+        "title": "Obtain Real Estate Appraisals for Date-of-Death Value",
+        "description": "Hire a licensed appraiser to set the fair-market value of real property as of the date of death.",
+        "phase": "months-2-3",
+        "timeframe": "Within 90 days",
+        "priority": "medium",
+        "canDelegate": true,
+        "contactMethods": ["Phone", "Email", "In-Person"],
+        "requiredDocuments": [
+          "Property address",
+          "Access for appraisal inspection"
+        ],
+        "whyItMatters": "Establishes new cost basis, reducing capital-gains tax when property is sold.",
+        "humanInsight": "Request a retrospective appraisal—must state value 'as of' the exact death date.",
+        "whoToContact": "State-licensed residential or commercial appraiser",
+        "howToFindContact": "Local Realtor® referrals or Appraisal Institute directory.",
+        "whatToExpect": "Appraiser visits property, delivers report in 7-10 days.",
+        "suggestedProfessionals": "Real-estate attorney (if multiple heirs)",
+        "whatSuccessLooksLike": "PDF appraisal report showing appraised value as of date of death.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "Provide access to property; sign engagement letter.",
+        "resources": [],
+        "downloadableGuides": [],
+        "proTips": "Order two originals—court may require a certified copy.",
+        "relatedTasks": ["Adjust Cost Basis"],
+        "unlocksOtherSteps": true,
+        "dependsOn": "Request Multiple Certified Copies of the Death Certificate",
+        "completed": false,
+        "steps": [
+          {
+            "type": "action",
+            "instruction": "Contact appraisers for quotes and availability",
+            "contactMethod": "phone",
+            "phoneScript": "Hello, I need a retrospective real estate appraisal for estate purposes. The property owner passed away on [DATE] and I need the property valued as of that specific date. The property is located at [ADDRESS]. What would you charge for this type of appraisal and when could you complete it?",
+            "documentsNeeded": ["Property address", "Date of death", "Your authority as executor/trustee"]
+          },
+          {
+            "type": "instruction",
+            "instruction": "Select appraiser; sign engagement letter."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Provide property access or lockbox code."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Receive draft report; confirm correct effective date."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Pay invoice and save final PDF in estate files."
+          }
+        ]
+      },
+      {
+        "id": "e9e8956c-a06c-4370-af18-d4deec6e2f35",
+        "title": "Contact Financial Advisor to Adjust Accounts and Cost Basis",
+        "description": "Meet with fiduciary advisor to re-title assets, adjust cost basis, and set new withdrawal plans.",
+        "phase": "months-2-3",
+        "timeframe": "Within 90 days",
+        "priority": "high",
+        "canDelegate": false,
+        "contactMethods": ["In-Person", "Phone", "Email"],
+        "requiredDocuments": [
+          "Certified death certificate",
+          "Date-of-death statements",
+          "Appraisal reports"
+        ],
+        "whyItMatters": "Ensures investments continue smoothly and tax basis is recorded before market changes.",
+        "humanInsight": "Ask advisor to run a 12-month cash-flow projection reflecting new income sources.",
+        "whoToContact": "Certified Financial Planner™ or fiduciary advisor",
+        "howToFindContact": "NAPFA or CFP Board search tools.",
+        "whatToExpect": "Paperwork for beneficiary transfers, cost-basis letters, updated income withdrawals.",
+        "suggestedProfessionals": "CFP®, CPA",
+        "whatSuccessLooksLike": "All inherited accounts retitled; cost basis documented; cash-flow plan updated.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "",
+        "resources": [],
+        "downloadableGuides": [],
+        "proTips": "Keep a separate 'inherited assets' account—simplifies future tax tracking.",
+        "relatedTasks": ["Begin Collecting Date-of-Death Statements", "Obtain Real Estate Appraisals"],
+        "unlocksOtherSteps": false,
+        "dependsOn": "Begin Collecting Date-of-Death Statements",
+        "completed": false,
+        "steps": [
+          {
+            "type": "action",
+            "instruction": "Email advisor to schedule a comprehensive estate review meeting",
+            "contactMethod": "email",
+            "emailTemplate": "Subject: Urgent - Estate Review Meeting Needed for [DECEASED NAME]\n\nDear [ADVISOR NAME],\n\n[DECEASED NAME] passed away on [DATE] and I need to schedule a meeting to review and retitle all inherited accounts and assets.\n\nI need help with:\n- Retitling inherited investment accounts\n- Updating cost basis for all assets\n- Reviewing and adjusting withdrawal/income strategies\n- Understanding tax implications of inherited assets\n\nI have the following documents ready:\n- Date-of-death account statements\n- Real estate appraisals\n- Death certificate\n- Letters testamentary/trust documents\n\nWhat is your earliest availability for a comprehensive review? I prefer to meet in person if possible.\n\nThank you,\n[YOUR NAME]\n[PHONE NUMBER]",
+            "documentsNeeded": ["Date-of-death statements", "Real estate appraisals", "Death certificate", "Executor/trustee documentation"]
+          },
+          {
+            "type": "instruction",
+            "instruction": "Provide DoD statements and appraisals in advance."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Sign transfer paperwork for each inherited account."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Review cost-basis adjustment letter and keep copy."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Set new automatic withdrawals or reinvestment strategy."
+          }
+        ]
+      },
+      {
+        "id": "c47e4b7a-8072-4c1f-8817-f727c3c0d51e",
+        "title": "Notify Key Financial Institutions and Credit Bureaus",
+        "description": "Inform banks, mortgage lender, DMV, health insurer, and credit bureaus of the death and freeze credit.",
+        "phase": "first-month",
+        "timeframe": "Within 30 days",
+        "priority": "high",
+        "canDelegate": true,
+        "contactMethods": ["Phone", "Mail", "Online"],
+        "requiredDocuments": [
+          "Death certificate (certified copy)",
+          "Account numbers",
+          "Executor authority documents (if applicable)"
+        ],
+        "whyItMatters": "Prevents fraud, stops unwanted mail, and transitions joint accounts correctly.",
+        "humanInsight": "Ask the credit bureaus to place a 'deceased alert'—this blocks most identity-theft attempts.",
+        "whoToContact": "Experian, Equifax, TransUnion; each bank/lender; DMV deaths unit; health insurer",
+        "howToFindContact": "Official websites; use addresses provided for estate notifications.",
+        "whatToExpect": "Letters or upload portals; bureaus send confirmation within 10 days.",
+        "suggestedProfessionals": "",
+        "whatSuccessLooksLike": "All institutions mark account as deceased or transferred; credit report shows freeze.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "Executor letters and certificate copies.",
+        "resources": [],
+        "downloadableGuides": [],
+        "proTips": "Close unused joint credit cards last—some mortgage scores rely on card age.",
+        "relatedTasks": ["Transfer Technology and Utility Accounts"],
+        "unlocksOtherSteps": false,
+        "dependsOn": "Request Multiple Certified Copies of the Death Certificate",
+        "completed": false,
+        "steps": [
+          {
+            "type": "action",
+            "instruction": "Create standardized notification letter with deceased information",
+            "contactMethod": "mail",
+            "emailTemplate": "Subject: Death Notification - Please Update Records for [DECEASED NAME]\n\nDear [Institution Name],\n\nI am writing to notify you of the death of [DECEASED NAME] (SSN: XXX-XX-XXXX) who passed away on [DATE OF DEATH].\n\nPlease update your records to reflect this death and take the following actions:\n- Mark all accounts as deceased\n- Freeze any individual credit lines or accounts\n- Stop all marketing communications\n- Convert joint accounts to individual accounts for the surviving account holder\n\nI am attaching a certified copy of the death certificate for your records.\n\nFor accounts requiring additional documentation, please contact me at [PHONE NUMBER] or [EMAIL ADDRESS].\n\nThank you for your prompt attention to this matter.\n\nSincerely,\n[YOUR NAME]\n[RELATIONSHIP TO DECEASED]\n[CONTACT INFORMATION]",
+            "documentsNeeded": ["Certified death certificate copy", "Account numbers if available", "Your identification"]
+          },
+          {
+            "type": "instruction",
+            "instruction": "Send or upload to each credit bureau requesting freeze and alert."
+          },
+          {
+            "type": "action",
+            "instruction": "Call each bank to report death and ask for estate department",
+            "contactMethod": "phone",
+            "phoneScript": "Hello, I'm calling to report the death of an account holder, [DECEASED NAME], who passed away on [DATE]. I need to report this death and understand the process for handling their accounts. Can you transfer me to your estate department or tell me what steps I need to take?",
+            "documentsNeeded": ["Deceased's full name and SSN", "Account numbers if known", "Your relationship to deceased"]
+          },
+          {
+            "type": "instruction",
+            "instruction": "Mail death certificate copies where required."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Verify updates by pulling free credit reports after 30 days."
+          }
+        ]
+      },
+      {
+        "id": "a6e27328-57f6-4a8e-97e8-a62c48e8ed6c",
+        "title": "Secure and Retitle Property (Vehicles, Real Estate, Valuable Assets)",
+        "description": "Lock up standalone assets titled solely in deceased's name and retitle per court order or trust.",
+        "phase": "months-2-3",
+        "timeframe": "Within 90 days",
+        "priority": "medium",
+        "canDelegate": true,
+        "contactMethods": ["In-Person", "Mail", "Online"],
+        "requiredDocuments": [
+          "Letters testamentary or trust certificate",
+          "Death certificate",
+          "Original vehicle title or deed"
+        ],
+        "whyItMatters": "Prevents loss, liability, and unauthorized use while estate is settled.",
+        "humanInsight": "Photograph the odometer and property condition before storage—protects against disputes.",
+        "whoToContact": "DMV title office, county recorder, storage facility",
+        "howToFindContact": "State DMV website, county recorder office address.",
+        "whatToExpect": "Title transfer forms, recording fees, possible probate court approval.",
+        "suggestedProfessionals": "Real-estate attorney, estate lawyer",
+        "whatSuccessLooksLike": "New title/deed lists correct owner (estate or beneficiary) and asset is safely stored or insured.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "Executor/trustee authorization papers.",
+        "resources": [],
+        "downloadableGuides": [],
+        "proTips": "Keep estate assets insured until sold or transferred—lapses void claims.",
+        "relatedTasks": ["Administer Trust or Initiate Probate Proceedings"],
+        "unlocksOtherSteps": false,
+        "dependsOn": "Administer Trust or Initiate Probate Proceedings",
+        "completed": false,
+        "steps": [
+          {
+            "type": "instruction",
+            "instruction": "Inventory all solely-titled assets (vehicles, real property, collectibles)."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Arrange secure storage or change locks as needed."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Complete DMV or recorder title-transfer forms with legal authority."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Submit forms, pay fees, and obtain new title/deed."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Update insurance policies to new titled owner."
+          }
+        ]
+      },
+      {
+        "id": "1c01c877-b0d9-4fba-8efa-4fb83ca4bad4",
+        "title": "Check State Controller's Unclaimed Property Website",
+        "description": "Search for and claim any funds or property owed to the deceased that have escheated to the state.",
+        "phase": "months-3-6",
+        "timeframe": "Within 6 months",
+        "priority": "low",
+        "canDelegate": true,
+        "contactMethods": ["Online", "Mail"],
+        "requiredDocuments": [
+          "Death certificate",
+          "Proof of executor authority",
+          "Claim form"
+        ],
+        "whyItMatters": "Recovers forgotten bank accounts, stock dividends, or refunds that increase estate value.",
+        "humanInsight": "Search yearly—new items are added every summer.",
+        "whoToContact": "State controller or treasury unclaimed-property division",
+        "howToFindContact": "Google '(State) unclaimed property' (official .gov site).",
+        "whatToExpect": "Submit claim online or by mail; processing 60-180 days.",
+        "suggestedProfessionals": "",
+        "whatSuccessLooksLike": "Check or security certificates issued to the estate/beneficiary.",
+        "suggestedQuantity": "",
+        "delegationRequirements": "Executor documents plus certificate.",
+        "resources": [],
+        "downloadableGuides": [],
+        "proTips": "Ignore third-party finders who charge a fee—claiming yourself is free.",
+        "relatedTasks": [],
+        "unlocksOtherSteps": false,
+        "dependsOn": "Request Multiple Certified Copies of the Death Certificate",
+        "completed": false,
+        "steps": [
+          {
+            "type": "instruction",
+            "instruction": "Visit the official unclaimed-property site for each state where the deceased lived."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Enter name and previous addresses."
+          },
+          {
+            "type": "instruction",
+            "instruction": "If matches appear, click 'Claim' and complete online form."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Upload required documents or mail as instructed."
+          },
+          {
+            "type": "instruction",
+            "instruction": "Track claim status and deposit any recovered funds into the estate account."
+          }
+        ]
+      }
+    ]
+  }

@@ -106,6 +106,27 @@ async function handleRequest(req: Request, user: AuthenticatedUser): Promise<Res
           id,
           name,
           description,
+          phase,
+          timeframe,
+          priority,
+          can_delegate,
+          contact_methods,
+          required_documents,
+          why_it_matters,
+          human_insight,
+          who_to_contact,
+          how_to_find_contact,
+          what_to_expect,
+          suggested_professionals,
+          what_success_looks_like,
+          suggested_quantity,
+          delegation_requirements,
+          resources,
+          downloadable_guides,
+          pro_tips,
+          related_task_ids,
+          unlocks_other_steps,
+          depends_on_task_id,
           task_template_articles(
             articles!inner(
               id,
@@ -131,6 +152,7 @@ async function handleRequest(req: Request, user: AuthenticatedUser): Promise<Res
             title,
             order,
             instructions,
+            step_type,
             communication_helpers
           )
         ),
@@ -218,6 +240,7 @@ async function handleRequest(req: Request, user: AuthenticatedUser): Promise<Res
           title: step.task_steps.title,
           order: step.task_steps.order,
           instructions: step.task_steps.instructions,
+          step_type: step.task_steps.step_type,
           communication_helpers: step.task_steps.communication_helpers,
           completed: step.completed,
           completed_at: step.completed_at
