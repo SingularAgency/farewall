@@ -379,6 +379,159 @@ paths:
                     error: "Internal server error"
                     details: "Failed to fetch task instances"
 
+  /functions/v1/task-management/{task_instance_id}:
+    get:
+      summary: Get task instance details
+      description: |
+        Retrieve detailed information for a specific task instance by ID. This endpoint
+        provides comprehensive task management data including task steps, completion status,
+        notes, and related articles for a single task instance.
+        
+        **Access Control**: Users must have access to the case associated with the task instance.
+        Admins can access any task instance.
+      operationId: getTaskInstanceDetail
+      tags:
+        - Task Management
+      parameters:
+        - name: task_instance_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: UUID of the task instance to retrieve
+          example: "54502036-9aab-4592-a7b3-3be416087a53"
+      responses:
+        '200':
+          description: Task instance retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskInstanceWithDetails'
+              examples:
+                success_example:
+                  summary: Successful task instance retrieval
+                  value:
+                    id: "54502036-9aab-4592-a7b3-3be416087a53"
+                    case_id: "07fac85d-624c-4b13-b0fc-1f15d917d40f"
+                    task_template_id: "574e2267-64fc-4cf9-a1e7-661e727797c1"
+                    assigned_user_id: "38e138cc-3389-49ad-b3c8-b1034124c5f3"
+                    status: "pending"
+                    created_at: "2025-11-11T17:33:05.441865+00:00"
+                    updated_at: "2025-11-11T17:33:05.441865+00:00"
+                    case:
+                      id: "07fac85d-624c-4b13-b0fc-1f15d917d40f"
+                      deceased_name: "John Doe"
+                      date_of_death: "2024-01-10"
+                      created_at: "2024-01-10T08:00:00.000Z"
+                      case_users:
+                        - user_id: "38e138cc-3389-49ad-b3c8-b1034124c5f3"
+                          profiles:
+                            id: "38e138cc-3389-49ad-b3c8-b1034124c5f3"
+                            name: "Jane Smith"
+                            email: "jane@example.com"
+                    task_template:
+                      id: "574e2267-64fc-4cf9-a1e7-661e727797c1"
+                      name: "Funeral Arrangements"
+                      description: "Complete funeral planning tasks"
+                      phase: "immediately"
+                      timeframe: "Within 24 hours"
+                      priority: "high"
+                      can_delegate: false
+                      contact_methods: ["phone", "email"]
+                      required_documents: ["death_certificate"]
+                      why_it_matters: "Timely arrangements are crucial"
+                      human_insight: "This is a difficult time, take breaks when needed"
+                      who_to_contact: "Funeral home director"
+                      how_to_find_contact: "Search online or ask for recommendations"
+                      what_to_expect: "Initial consultation and planning session"
+                      suggested_professionals: "Licensed funeral director"
+                      what_success_looks_like: "Funeral arrangements confirmed"
+                      suggested_quantity: "1"
+                      delegation_requirements: "None"
+                      resources: ["funeral-planning-guide.pdf"]
+                      downloadable_guides: ["funeral-checklist.pdf"]
+                      pro_tips: "Ask about package deals"
+                      related_task_ids: []
+                      unlocks_other_steps: true
+                      depends_on_task_id: null
+                    assigned_user:
+                      id: "38e138cc-3389-49ad-b3c8-b1034124c5f3"
+                      name: "Jane Smith"
+                      email: "jane@example.com"
+                      role: "executor"
+                    task_steps:
+                      - id: "step-1"
+                        title: "Contact Funeral Home"
+                        order: 1
+                        instructions: "Research and contact local funeral homes"
+                        step_type: "action"
+                        communication_helpers:
+                          template_email: "Dear [Funeral Home], I am reaching out regarding funeral arrangements..."
+                          phone_script: "Hello, I'm calling to inquire about your funeral services..."
+                        completed: false
+                        completed_at: null
+                    notes:
+                      - id: "note-1"
+                        content: "Contacted three funeral homes, waiting for quotes"
+                        created_at: "2024-01-15T10:45:00.000Z"
+                        author:
+                          id: "38e138cc-3389-49ad-b3c8-b1034124c5f3"
+                          name: "Jane Smith"
+                          email: "jane@example.com"
+                    articles:
+                      - id: "article-1"
+                        title: "How to Choose a Funeral Home"
+                        summary: "Guidelines for selecting the right funeral home"
+                        content_url: "https://example.com/funeral-home-guide"
+                        read_time_min: 5
+        '401':
+          description: Unauthorized - Invalid or missing authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized:
+                  summary: Unauthorized access
+                  value:
+                    error: "Unauthorized"
+                    message: "Invalid or missing authentication token"
+        '403':
+          description: Forbidden - User does not have access to this task instance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden:
+                  summary: Access denied
+                  value:
+                    error: "Access denied: You do not have access to this task instance"
+        '404':
+          description: Not found - Task instance not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                not_found:
+                  summary: Task instance not found
+                  value:
+                    error: "Task instance not found"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                server_error:
+                  summary: Internal server error
+                  value:
+                    error: "Internal server error"
+                    details: "Failed to fetch task instance"
+
   /functions/v1/cases:
     get:
       summary: List accessible cases
