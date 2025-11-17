@@ -532,6 +532,132 @@ paths:
                     error: "Internal server error"
                     details: "Failed to fetch task instance"
 
+  /functions/v1/task-step-complete:
+    post:
+      summary: Mark task step as complete
+      description: |
+        Mark a specific task step as completed. Only users with access to the related case
+        (or administrators) may mark steps as completed. The endpoint records the completion
+        timestamp and returns the updated task step state.
+      operationId: completeTaskStep
+      tags:
+        - Task Management
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - task_step_id
+              properties:
+                task_step_id:
+                  type: string
+                  format: uuid
+                  description: UUID of the task step to mark as complete
+                  example: "9e6cbfb9-1fda-4e8c-b842-9d92b34d27c8"
+            examples:
+              complete_step:
+                summary: Mark a step as completed
+                value:
+                  task_step_id: "9e6cbfb9-1fda-4e8c-b842-9d92b34d27c8"
+      responses:
+        '200':
+          description: Task step marked as complete
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Task step marked as complete"
+                  task_step:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      task_instance_id:
+                        type: string
+                        format: uuid
+                      completed:
+                        type: boolean
+                      completed_at:
+                        type: string
+                        format: date-time
+              examples:
+                success:
+                  summary: Successful completion
+                  value:
+                    message: "Task step marked as complete"
+                    task_step:
+                      id: "9e6cbfb9-1fda-4e8c-b842-9d92b34d27c8"
+                      task_instance_id: "54502036-9aab-4592-a7b3-3be416087a53"
+                      completed: true
+                      completed_at: "2025-11-20T14:15:22.123Z"
+        '400':
+          description: Bad request - Missing required fields
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missing_id:
+                  summary: Missing task_step_id
+                  value:
+                    error: "task_step_id is required"
+        '401':
+          description: Unauthorized - Invalid or missing authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized:
+                  summary: Unauthorized access
+                  value:
+                    error: "Unauthorized"
+                    message: "Invalid or missing authentication token"
+        '403':
+          description: Forbidden - User does not have access to the case
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden:
+                  summary: Access denied
+                  value:
+                    error: "Access denied: You do not have access to this case"
+        '404':
+          description: Task step or associated instance not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                step_not_found:
+                  summary: Task step not found
+                  value:
+                    error: "Task step not found"
+                instance_not_found:
+                  summary: Task instance not found
+                  value:
+                    error: "Associated task instance not found"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                server_error:
+                  summary: Internal server error
+                  value:
+                    error: "Internal server error"
+                    details: "Failed to mark task step as complete"
+
   /functions/v1/cases:
     get:
       summary: List accessible cases
