@@ -110,28 +110,18 @@ async function handleRequest(req: Request, user: AuthenticatedUser): Promise<Res
       }
     }
 
-    // If already completed, return current state
-    if (taskStep.completed) {
-      return new Response(
-        JSON.stringify({
-          message: 'Task step already completed',
-          task_step: taskStep,
-        }),
-        {
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-          status: 200,
-        },
-      )
-    }
-
+    // Toggle completion status
+    const newCompletedStatus = !taskStep.completed
     const now = new Date().toISOString()
+
+    const updateData: { completed: boolean; completed_at: string | null } = {
+      completed: newCompletedStatus,
+      completed_at: newCompletedStatus ? now : null,
+    }
 
     const { data: updatedTaskStep, error: updateError } = await supabase
       .from('task_instance_steps')
-      .update({
-        completed: true,
-        completed_at: now,
-      })
+      .update(updateData)
       .eq('id', taskStepId)
       .select('id, task_instance_id, completed, completed_at')
       .single()
@@ -139,7 +129,7 @@ async function handleRequest(req: Request, user: AuthenticatedUser): Promise<Res
     if (updateError || !updatedTaskStep) {
       console.error('Failed to update task step:', updateError)
       return new Response(
-        JSON.stringify({ error: 'Failed to mark task step as complete' }),
+        JSON.stringify({ error: 'Failed to toggle task step completion status' }),
         {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
           status: 500,
@@ -149,7 +139,9 @@ async function handleRequest(req: Request, user: AuthenticatedUser): Promise<Res
 
     return new Response(
       JSON.stringify({
-        message: 'Task step marked as complete',
+        message: newCompletedStatus 
+          ? 'Task step marked as complete' 
+          : 'Task step marked as incomplete',
         task_step: updatedTaskStep,
       }),
       {
