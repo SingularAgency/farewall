@@ -19,7 +19,7 @@ function transformTaskInstance(instance: any): TaskInstanceWithDetails {
   const sortedSteps = instance.task_instance_steps
     ?.sort((a: any, b: any) => a.task_steps.order - b.task_steps.order)
     ?.map((step: any) => ({
-      id: step.task_steps.id,
+      id: step.id, // Use task_instance_steps.id (the instance UUID) not task_steps.id (template UUID)
       title: step.task_steps.title,
       order: step.task_steps.order,
       instructions: step.task_steps.instructions,
